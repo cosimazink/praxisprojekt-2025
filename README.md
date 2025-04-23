@@ -6,11 +6,11 @@ Dieses Projekt ist Teil des Praxisprojekts von Christian Noss und hat das Ziel, 
 
 ## Dokumentation & Ressourcen
 
-Wiki: Detaillierte technische Dokumentation und Anleitungen zur Nutzung der Anwendung findest du im [Projekt-Wiki](https://github.com/cosimazink/praxisprojekt-2025/wiki)
-Exposé: [Exposé ‐ Web‐Anwendung zur Selfie-Dokumentation](https://github.com/cosimazink/praxisprojekt-2025/wiki/Exposé)
-Weekly Documentation: [Wöchentliche Dokumentation der Arbeit](https://github.com/cosimazink/praxisprojekt-2025/wiki/Weekly-Documentation)
-Kanban Board: [Kanban Board mit Issues für das Praxisprojekt](https://github.com/users/cosimazink/projects/1)
-Miro-Board: Weitere Details und die visuelle Darstellung des Projekts findest du auf dem [Miro-Board](https://miro.com/app/board/uXjVIGOgDeY=/)
+Wiki: Detaillierte technische Dokumentation und Anleitungen zur Nutzung der Anwendung findest du im [Projekt-Wiki](https://github.com/cosimazink/praxisprojekt-2025/wiki) <br>
+Exposé: [Exposé ‐ Web‐Anwendung zur Selfie-Dokumentation](https://github.com/cosimazink/praxisprojekt-2025/wiki/Exposé) <br>
+Weekly Documentation: [Wöchentliche Dokumentation der Arbeit](https://github.com/cosimazink/praxisprojekt-2025/wiki/Weekly-Documentation) <br>
+Kanban Board: [Kanban Board mit Issues für das Praxisprojekt](https://github.com/users/cosimazink/projects/1) <br>
+Miro-Board: Weitere Details und die visuelle Darstellung des Projekts findest du auf dem [Miro-Board](https://miro.com/app/board/uXjVIGOgDeY=/) 
 
 ## Contributers
 [Cosima Hiromi Zink](https://github.com/cosimazink)
