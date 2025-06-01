@@ -1,5 +1,5 @@
 # Web-Anwendung - Praxisprojekt-2025
-## UX-orientierte Gestaltung einer Selfie-basierten Webanwendung zur Selbstbeobachtung
+## Konzeption und UX-orientierte Gestaltung einer Selfie-basierten Webanwendung zur visuellen Selbstbeobachtung mit Rückschaufunktion
 
 Dieses Projekt ist Teil des Praxisprojekts von Christian Noss und hat das Ziel, eine eigenständige Web-Anwendung zu entwickeln, die Nutzer:innen ermöglicht, täglich ein Selfie aufzunehmen und ihren persönlichen Fortschritt über eine visuelle Timeline zu dokumentieren. Nach einer definierten Anzahl an Aufnahmen wird automatisch ein animiertes Video erstellt, das die individuelle Entwicklung über Zeit sichtbar macht. Die Lösung verbindet Self-Tracking mit motivierender visueller Rückmeldung und bietet eine einfache, plattformunabhängige Nutzung direkt im Browser. <br>
 
