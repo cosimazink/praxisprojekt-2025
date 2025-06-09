@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Selfie Aufnahme</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Selfie aufnehmen</h1>
+
+  <div class="video-wrapper">
+    <video id="video" autoplay playsinline></video>
+  </div>
+  <canvas id="canvas" style="display:none;"></canvas>
+
+  <div class="buttons">
+    <button id="capture">📸 Foto aufnehmen</button>
+    <button id="retry" style="display:none;">🔁 Neu aufnehmen</button>
+    <button id="save" style="display:none;">💾 Speichern</button>
+  </div>
+
+  <div id="gallery"></div>
+
+  <script src="/script.js"></script>
+</body>
+</html>
