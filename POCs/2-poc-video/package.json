@@ -1,0 +1,17 @@
+{
+  "name": "2-poc-video",
+  "version": "1.0.0",
+  "description": "Zeitraffer-Videoerstellung aus Selfies mit konfigurierbaren Parametern",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["ffmpeg", "video", "node", "selfie", "zeitraffer"],
+  "author": "Cosima Zink",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.1.0",
+    "fluent-ffmpeg": "^2.1.3"
+  }
+}
