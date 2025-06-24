@@ -1,0 +1,108 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(to bottom, #f7f9fc, #e2e8f0);
+  color: #333;
+  margin: 0;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* === Überschrift === */
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #1a202c;
+}
+
+/* === Kamera- & Canvasbereich === */
+.video-wrapper, canvas {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  margin-bottom: 1rem;
+}
+
+video {
+  width: 100%;
+  transform: scaleX(-1); /* Nur Video gespiegelt, Canvas nicht */
+  border-radius: 12px;
+}
+
+/* === Canvas zur Anzeige des Bildes === */
+canvas {
+  display: none;
+  width: 100%;
+}
+
+/* === Buttonbereich === */
+.buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #1e40af;
+}
+
+button:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+}
+
+/* === Galeriebereich === */
+#gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  max-width: 720px;
+}
+
+#gallery img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #cbd5e0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  object-fit: cover;
+  aspect-ratio: 3/4;
+  transition: transform 0.2s ease;
+}
+
+#gallery img:hover {
+  transform: scale(1.03);
+}
+
+/* === Responsive Anpassungen === */
+@media (max-width: 600px) {
+  .buttons {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}
