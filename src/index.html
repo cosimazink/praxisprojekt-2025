@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <!-- Meta-Informationen und Stylesheets -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mira</title>
+
+    <!-- Externe Stylesheets -->
+    <link rel="stylesheet" href="/src/styles/index.css" />
+</head>
+
+<body>
+    <!-- Header mit Navigation -->
+    <header>
+        <div>
+            <img src="/src/assets/mira-logo.png" alt="mira-logo">
+            <p>My Image Reflection Application</p>
+        </div>
+
+        <img src="/src/assets/burger-menu.png" alt="burger-menu">
+        <!-- <nav>
+            <ul>
+                <li><a href="/src/pocs/1-poc-camera/views/index.html">Selfie aufnehmen</a></li>
+                <li><a href="/src/pocs/2-poc-video/views/index.html">Zeitraffer Video erstellen</a></li>
+                <li><a href="/src/pocs/3-poc-selfie-storage/views/index.html">Selfie Galerie</a></li>
+            </ul>
+        </nav> -->
+    </header>
+
+    <main>
+        <div>
+            <h1>Willkommen!</h1>
+            <p>
+                Dein persönliches Selfie-Tagebuch wartet auf dich.
+                Nimm täglich dein Foto auf, verfolge deine Entwicklung und bleib dran.
+            </p>
+            <p>Jeder Tag zählt!</p>
+        </div>
+
+        <button>
+            <img src="/src/assets/camera-icon.png" alt="camera-icon">
+            Heutiges Selfie aufnehmen
+        </button>
+
+        <div class="progress-container">
+            <svg class="progress-ring" width="120" height="120">
+                <circle class="ring" cx="60" cy="60" r="54" stroke="yellow" stroke-width="4" />
+                <!-- css in datei verlegen -->
+                <text class="ring-text" fill="#ffffff" font-size="40" x="40" y="75">22</text>
+            </svg>
+            <p class="progress-text">Noch 8 Selfies bis zum Recap-Video</p>
+        </div>
+
+        <section class="video-overview">
+            <h2>Recap-Videos</h2>
+            <div class="video-slider" id="videoSlider"></div>
+            <button>
+                <img src="/src/assets/videocam-icon.png" alt="videocam-icon">
+                Recap-Video erstellen
+            </button>
+        </section>
+
+        <section class="selfie-overview">
+            <h2>Selfie Übersicht</h2>
+            <div class="calendar">
+                <p>Mai 2025</p>
+                <ul class="weekdays">
+                    <li>Mo</li>
+                    <li>Di</li>
+                    <li>Mi</li>
+                    <li>Do</li>
+                    <li>Fr</li>
+                    <li>Sa</li>
+                    <li>So</li>
+                </ul>
+                <ul class="days">
+                    <li class="day">1</li>
+                    <li class="day">2</li>
+                    <li class="day">3</li>
+                    <li class="day">4</li>
+                    <li class="day">5</li>
+                    <li class="day">6</li>
+                    <li class="day">7</li>
+                </ul>
+                <div class="selfies" id="selfies"></div>
+                <p class="show-more">Mehr anzeigen</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer mit Zusatzinformationen und Links -->
+    <footer>
+        <p>2025 Mira</p>
+        <p>My Image Reflection Application</p>
+        <p>Cosima Hiromi Zink - Praxisprojekt</p>
+
+        <a href="https://github.com/cosimazink/praxisprojekt-2025" aria-label="GitHub Repository">
+            <img src="/src/assets/github-logo.png" alt="GitHub">
+        </a>
+    </footer>
+</body>
+
+</html>
