@@ -7,18 +7,19 @@
     <title>mira</title>
 
     <!-- Externe Stylesheets -->
-    <link rel="stylesheet" href="/src/styles/index.css" />
+    <link rel="stylesheet" href="/styles/combined.css">
+    <link rel="stylesheet" href="/styles/index.css" />
 </head>
 
 <body>
     <!-- Header mit Navigation -->
     <header>
-        <div>
-            <img src="/src/assets/mira-logo.png" alt="mira-logo">
-            <p>My Image Reflection Application</p>
+        <div class="logo-container">
+            <img class="mira-logo" src="/assets/mira-logo.png" alt="mira-logo">
+            <p class="logo-text">My Image <br> Reflection Application</p>
         </div>
 
-        <img src="/src/assets/burger-menu.png" alt="burger-menu">
+        <img class="burger-menu" src="/assets/burger-menu.png" alt="burger-menu">
         <!-- <nav>
             <ul>
                 <li><a href="/src/pocs/1-poc-camera/views/index.html">Selfie aufnehmen</a></li>
@@ -39,7 +40,7 @@
         </div>
 
         <button>
-            <img src="/src/assets/camera-icon.png" alt="camera-icon">
+            <span class="icon">photo_camera</span>
             Heutiges Selfie aufnehmen
         </button>
 
@@ -56,7 +57,7 @@
             <h2>Recap-Videos</h2>
             <div class="video-slider" id="videoSlider"></div>
             <button>
-                <img src="/src/assets/videocam-icon.png" alt="videocam-icon">
+                <span class="icon">videocam</span>
                 Recap-Video erstellen
             </button>
         </section>
@@ -96,7 +97,7 @@
         <p>Cosima Hiromi Zink - Praxisprojekt</p>
 
         <a href="https://github.com/cosimazink/praxisprojekt-2025" aria-label="GitHub Repository">
-            <img src="/src/assets/github-logo.png" alt="GitHub">
+            <img src="/assets/github-logo.png" alt="GitHub">
         </a>
     </footer>
 </body>

@@ -1,0 +1,55 @@
+:root {
+    --color-black: #141414;
+    --color-grey-dark: #74726D;
+    --color-grey-light: #B3AFAA;
+    --color-white: #FFFAF1;
+    --color-yellow: #EBBE56;
+    --color-red: #E64545;
+    --color-green: #499741;
+
+    --ff-primary: 'Sora', sans-serif;
+    --ff-secondary: 'Courier Prime', sans-serif;
+    --ff-icons: material-icons;
+
+    --lh-tight: 100%;
+    --lh-normal: 130%;
+    --lh-loose: 150%;
+
+    --fw-light: 200;
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-bold: 600;
+    --fw-logo: 700;
+    
+    --basefont-size: 18px;
+    
+    --xs: 5px;
+    --s: 10px;
+    --m: 15px;
+    --l: 20px;
+    --xl: 25px;
+    --xxl: 30px;
+    --xxxl: 40px;
+    --xxxxl: 100px;
+
+    --size-xs: 80px;
+
+    --fs-logo-mobile: 32px;
+    --fs-logo-desktop: 42px;
+    --fs-xs: 12px;
+    --fs-s: 14px;
+    --fs-m: 16px;
+    --fs-l: 18px;
+    --fs-xl: 22px;
+    --fs-xxl: 42px;
+
+    --eighth: calc(var(--m) / 8);
+    --quarter: calc(var(--m) / 4);
+    --half: calc(var(--m) / 2);
+
+    --grid-item-size-max: 300px;
+
+    --tr-fast: 0.3s;
+    --tr-normal: 0.6s;
+    --tr-slow: 1s;
+  }
