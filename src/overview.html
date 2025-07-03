@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <!-- Meta-Informationen und Stylesheets -->
     <meta charset="UTF-8">
@@ -8,7 +9,7 @@
 
     <!-- Externe Stylesheets -->
     <link rel="stylesheet" href="/styles/combined.css">
-    <link rel="stylesheet" href="/styles/index.css" />
+    <link rel="stylesheet" href="/styles/overview.css" />
 </head>
 
 <body>
@@ -44,13 +45,11 @@
             Heutiges Selfie aufnehmen
         </button>
 
-        <div class="progress-container">
-            <svg class="progress-ring" width="120" height="120">
-                <circle class="ring" cx="60" cy="60" r="54" stroke="yellow" stroke-width="4" />
-                <!-- css in datei verlegen -->
-                <text class="ring-text" fill="#ffffff" font-size="40" x="40" y="75">22</text>
-            </svg>
-            <p class="progress-text">Noch 8 Selfies bis zum Recap-Video</p>
+        <div class="wrapper">
+            <div class="progress-circle">
+                <div class="progress-number">0</div>
+            </div>
+            <p class="progress-text">Noch 8 Selfies <br> bis zum Recap-Video</p>
         </div>
 
         <section class="video-overview">
@@ -92,14 +91,14 @@
 
     <!-- Footer mit Zusatzinformationen und Links -->
     <footer>
-        <p>2025 Mira</p>
-        <p>My Image Reflection Application</p>
-        <p>Cosima Hiromi Zink - Praxisprojekt</p>
+
+        <p>2025 Mira <br> My Image Reflection Application <br> Cosima Hiromi Zink - Praxisprojekt</p>
 
         <a href="https://github.com/cosimazink/praxisprojekt-2025" aria-label="GitHub Repository">
             <img src="/assets/github-logo.png" alt="GitHub">
         </a>
     </footer>
+    <script src="/scripts/overview.js"></script>
 </body>
 
 </html>

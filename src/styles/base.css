@@ -1,5 +1,8 @@
 html,
 body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   background-color: var(--color-black);
   font-family: var(--ff-primary);
   font-size: var(--m);
@@ -11,6 +14,7 @@ body {
 main {
   margin-left: var(--xxl);
   margin-right: var(--xxl);
+  flex: 1;
 }
 
 header {
@@ -69,6 +73,7 @@ h2 {
 }
 
 p {
+  font-size: var(--fs-s);
   margin-bottom: var(--s);
 }
 
@@ -78,7 +83,7 @@ img {
 }
 
 footer {
-  padding: 40px 80px;
+  padding: var(--xl) var(--xxl);
   background-color: var(--color-white);
   width: 100%;
   box-sizing: border-box;
@@ -86,62 +91,5 @@ footer {
 
   p {
       margin: 0;
-  }
-
-  .footer-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      .left {
-          text-align: left;
-          width: 15%;
-
-          .brand {
-              font-size: 22px;
-              font-weight: bold;
-              color: var(--color-white);
-          }
-
-          .small-text {
-              font-size: 12px;
-              line-height: var(--lh-normal);
-              color: #ADADAD;
-          }
-      }
-
-      .right {
-          list-style: none;
-          display: flex;
-          padding: 0;
-          margin: 0;
-          align-items: flex-start; 
-
-          li {
-              margin: 0 15px;
-
-              a {
-                  font-size: 16px;
-                  color: var(--color-white);
-                  text-decoration: none;
-
-                  &:hover {
-                      text-decoration: underline;
-                  }
-              }
-          }
-      }
-  }
-
-  .divider {
-      margin: 20px 0;
-      border: 0;
-      border-top: 1px solid var(--color-purple);
-  }
-
-  .copyright {
-      text-align: left;
-      font-size: 12px;
-      color: #ADADAD;
   }
 }
