@@ -1,0 +1,32 @@
+/* selfie.css */
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 75%; /* 4:3 aspect ratio (height is 75% of width for a common camera aspect ratio) */
+  overflow: hidden;
+  background-color: var(--color-black); /* Fallback background */
+  border-radius: var(--s); /* Slightly rounded corners for the video area */
+  margin-bottom: var(--l); /* Space between video and buttons */
+}
+
+.video-wrapper video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the video covers the area without distortion */
+  transform: scaleX(-1); /* Flip horizontally for a mirror effect common in selfies */
+}
+
+#canvas {
+    width: 100%;
+    border-radius: var(--s);
+}
+
+h2 {
+    margin-top: var(--xxxl);
+    margin-bottom: var(--l);
+    padding: 0;
+}

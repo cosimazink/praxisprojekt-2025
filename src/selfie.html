@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Selfie aufnehmen</title>
+
+  <link rel="stylesheet" href="/styles/combined.css">
+  <link rel="stylesheet" href="/styles/selfie.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img class="mira-logo" src="/assets/mira-logo.png" alt="mira-logo">
+            <p class="logo-text">My Image <br> Reflection Application</p>
+        </div>
+
+        <img class="burger-menu" src="/assets/burger-menu.png" alt="burger-menu">
+        <!-- <nav>
+            <ul>
+                <li><a href="/src/pocs/1-poc-camera/views/index.html">Selfie aufnehmen</a></li>
+                <li><a href="/src/pocs/2-poc-video/views/index.html">Zeitraffer Video erstellen</a></li>
+                <li><a href="/src/pocs/3-poc-selfie-storage/views/index.html">Selfie Galerie</a></li>
+            </ul>
+        </nav> -->
+    </header>
+
+  <main>
+    <h2>Selfie aufnehmen</h2>
+
+    <div class="video-wrapper">
+      <video id="video" autoplay playsinline></video>
+    </div>
+    <canvas id="canvas" style="display:none;"></canvas>
+
+    <div class="buttons">
+      <button id="capture">Foto aufnehmen</button>
+      <button id="retry" style="display:none;">Neu aufnehmen</button>
+      <button id="save" style="display:none;">Speichern</button>
+    </div>
+  </main>
+
+    <footer>
+
+        <p>2025 Mira <br> My Image Reflection Application <br> Cosima Hiromi Zink - Praxisprojekt</p>
+
+        <a href="https://github.com/cosimazink/praxisprojekt-2025" aria-label="GitHub Repository">
+            <img src="/assets/github-logo.png" alt="GitHub">
+        </a>
+    </footer>
+
+  <script src="/scripts/selfie.js"></script>
+</body>
+</html>

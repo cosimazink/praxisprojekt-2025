@@ -1,0 +1,124 @@
+h1 {
+    font-size: var(--fs-logo-mobile);
+    font-weight: var(--fw-bold);
+    margin-top: var(--xxxl);
+    margin-bottom: var(--l);
+}
+
+h2 {
+    padding: 0;
+}
+
+/* Frotschrittsanzeige */
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: var(--xxxl);
+}
+
+.progress-circle {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: conic-gradient(var(--color-yellow) 0deg, var(--color-black) 0deg);
+}
+
+.progress-circle::before {
+    content: "";
+    position: absolute;
+    width: 92%;
+    height: 92%;
+    background-color: var(--color-black);
+    border-radius: 50%;
+}
+
+.progress-number {
+    position: relative;
+    font-size: var(--fs-xxl);
+    font-weight: var(--fw-bold);
+    color: var(--color-white);
+}
+
+.progress-text {
+    fill: var(--color-white);
+    margin-top: var(--s);
+    margin-bottom: 0;
+    text-align: center;
+}
+
+/* Recap Videos */
+
+.video-slider {
+  display: flex;
+  overflow-x: auto;
+  gap: var(--s);
+  scroll-snap-type: x mandatory;
+}
+
+.video-slider::-webkit-scrollbar {
+  height: 6px;
+}
+
+.video-slider::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.video-thumbnail {
+  position: relative;
+  flex: 0 0 auto;
+  width: 160px;
+  height: 90px;
+  border-radius: 8px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  background-color: #000;
+  cursor: pointer;
+}
+
+.video-thumbnail video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+}
+
+.video-thumbnail span {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  color: #fff;
+  font-size: var(--fs-s);
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.calendar {
+    font-family: var(--ff-secondary);
+
+    ul {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            margin-bottom: var(--xs);
+            font-size: var(--fs-s);
+            color: var(--color-grey-dark);
+        }
+    }
+}
+
+.show-more {
+    margin-top: var(--s);
+}

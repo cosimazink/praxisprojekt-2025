@@ -1,0 +1,161 @@
+html,
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-black);
+  font-family: var(--ff-primary);
+  font-size: var(--m);
+  hyphens: auto;
+  line-height: var(--lh-normal);
+  color: var(--color-white);
+}
+
+main {
+  margin-left: var(--xxl);
+  margin-right: var(--xxl);
+  flex: 1;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  background-color: var(--color-white);
+  color: var(--color-black);
+  margin: 0;
+  padding-left: var(--xxl);
+  padding-right: var(--xxl);
+  padding-bottom: var(--xl);
+  padding-top: var(--xxxl);
+
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-left: 53px;
+    }
+  }
+
+  a {
+    font-size: var(--fs-m);
+    font-style: normal;
+  }
+
+  .logo-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    .mira-logo {
+      width: 90px;
+      margin-bottom: 4px;
+      margin-right: var(--s);
+    }
+
+    .logo-text {
+      font-family: var(--ff-secondary);
+      padding: 0;
+      margin: 0;
+      font-size: var(--fs-s);
+      line-height: var(--m);
+      font-weight: var(--fw-medium);
+    }
+  }
+
+  .burger-menu {
+    cursor: pointer;
+    width: var(--xl);
+    margin-bottom: 4px;
+  }
+}
+
+a {
+  color: var(--color-black);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  padding-top: var(--m);
+  margin-bottom: var(--m);
+  font-weight: var(--fw-bold);
+  hyphens: none;
+}
+
+h1 {
+  padding: 0;
+  margin-bottom: 0;
+  font-family: var(--ff-logo);
+  font-weight: var(--fw-logo);
+  font-size: var(--fs-logo);
+}
+
+h2 {
+  font-size: var(--l);
+}
+
+p {
+  font-size: var(--fs-s);
+  margin-bottom: var(--s);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-black);
+  background-color: var(--color-yellow);
+  border: none;
+  border-radius: 3px;
+  padding: var(--xs) var(--m);
+  font-family: var(--ff-primary);
+  font-size: var(--fs-s);
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--xxxl);
+  margin-top: var(--m);
+
+  span {
+    font-size: var(--fs-xl);
+    padding-right: var(--xs);
+  }
+}
+
+button:hover {
+  background-color: color-mix(in srgb, var(--color-yellow), black 10%);
+  cursor: pointer;
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: var(--xl) var(--xxl);
+  background-color: var(--color-white);
+  width: 100%;
+  box-sizing: border-box;
+  color: var(--color-black);
+
+  a {
+    width: var(--xxl);
+  }
+
+
+  p {
+    margin: 0;
+  }
+}

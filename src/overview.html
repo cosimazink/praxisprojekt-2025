@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mira</title>
+
+    <link rel="stylesheet" href="/styles/combined.css">
+    <link rel="stylesheet" href="/styles/overview.css" />
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <img class="mira-logo" src="/assets/mira-logo.png" alt="mira-logo">
+            <p class="logo-text">My Image <br> Reflection Application</p>
+        </div>
+
+        <img class="burger-menu" src="/assets/burger-menu.png" alt="burger-menu">
+        <!-- <nav>
+            <ul>
+                <li><a href="/src/pocs/1-poc-camera/views/index.html">Selfie aufnehmen</a></li>
+                <li><a href="/src/pocs/2-poc-video/views/index.html">Zeitraffer Video erstellen</a></li>
+                <li><a href="/src/pocs/3-poc-selfie-storage/views/index.html">Selfie Galerie</a></li>
+            </ul>
+        </nav> -->
+    </header>
+
+    <main>
+        <div>
+            <h1>Willkommen!</h1>
+            <p>
+                Dein persönliches Selfie-Tagebuch wartet auf dich.
+                Nimm täglich dein Foto auf, verfolge deine Entwicklung und bleib dran.
+            </p>
+            <p>Jeder Tag zählt!</p>
+        </div>
+
+        <button id="startSelfie">
+            <span class="icon">photo_camera</span>
+            Heutiges Selfie aufnehmen
+        </button>
+
+        <div class="wrapper">
+            <div class="progress-circle">
+                <div class="progress-number">0</div>
+            </div>
+            <p class="progress-text">Noch 8 Selfies <br> bis zum Recap-Video</p>
+        </div>
+
+        <section class="video-overview">
+            <h2>Recap-Videos</h2>
+            <div class="video-slider" id="videoSlider"></div>
+            <button>
+                <span class="icon">videocam</span>
+                Recap-Video erstellen
+            </button>
+        </section>
+
+        <section class="selfie-overview">
+            <h2>Selfie Übersicht</h2>
+            <div class="calendar">
+                <p>Mai 2025</p>
+                <ul class="weekdays">
+                    <li>Mo</li>
+                    <li>Di</li>
+                    <li>Mi</li>
+                    <li>Do</li>
+                    <li>Fr</li>
+                    <li>Sa</li>
+                    <li>So</li>
+                </ul>
+                <ul class="days">
+                    <li class="day">1</li>
+                    <li class="day">2</li>
+                    <li class="day">3</li>
+                    <li class="day">4</li>
+                    <li class="day">5</li>
+                    <li class="day">6</li>
+                    <li class="day">7</li>
+                </ul>
+                <div class="selfies" id="selfies"></div>
+                <p class="show-more">Mehr anzeigen</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+
+        <p>2025 Mira <br> My Image Reflection Application <br> Cosima Hiromi Zink - Praxisprojekt</p>
+
+        <a href="https://github.com/cosimazink/praxisprojekt-2025" aria-label="GitHub Repository">
+            <img src="/assets/github-logo.png" alt="GitHub">
+        </a>
+    </footer>
+    <script src="/scripts/overview.js"></script>
+</body>
+
+</html>
