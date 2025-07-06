@@ -19,13 +19,16 @@ main {
 
 header {
   display: flex;
+  flex-direction: row;
+  align-items: flex-end;
   justify-content: space-between;
-  align-items: center;
   background-color: var(--color-white);
   color: var(--color-black);
   margin: 0;
   padding-left: var(--xxl);
   padding-right: var(--xxl);
+  padding-bottom: var(--xl);
+  padding-top: var(--xxxl);
 
   ul {
     display: flex;
@@ -41,6 +44,34 @@ header {
   a {
     font-size: var(--fs-m);
     font-style: normal;
+  }
+
+  .logo-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    .mira-logo {
+      width: 90px;
+      margin-bottom: 4px;
+      margin-right: var(--s);
+    }
+
+    .logo-text {
+      font-family: var(--ff-secondary);
+      padding: 0;
+      margin: 0;
+      font-size: var(--fs-s);
+      line-height: var(--m);
+      font-weight: var(--fw-medium);
+    }
+  }
+
+  .burger-menu {
+    cursor: pointer;
+    width: var(--xl);
+    margin-bottom: 4px;
   }
 }
 
@@ -82,14 +113,49 @@ img {
   height: auto;
 }
 
+button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-black);
+  background-color: var(--color-yellow);
+  border: none;
+  border-radius: 3px;
+  padding: var(--xs) var(--m);
+  font-family: var(--ff-primary);
+  font-size: var(--fs-s);
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--xxxl);
+  margin-top: var(--m);
+
+  span {
+    font-size: var(--fs-xl);
+    padding-right: var(--xs);
+  }
+}
+
+button:hover {
+  background-color: color-mix(in srgb, var(--color-yellow), black 10%);
+  cursor: pointer;
+}
+
 footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
   padding: var(--xl) var(--xxl);
   background-color: var(--color-white);
   width: 100%;
   box-sizing: border-box;
   color: var(--color-black);
 
+  a {
+    width: var(--xxl);
+  }
+
+
   p {
-      margin: 0;
+    margin: 0;
   }
 }

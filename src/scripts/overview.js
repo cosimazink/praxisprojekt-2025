@@ -77,4 +77,9 @@ function extractMonthFromFilename(filename) {
   return month;
 }
 
+// Startet die Selfie-Seite
+document.getElementById("startSelfie").addEventListener("click", () => {
+  window.location.href = "/selfie";
+});
+
 loadRecapVideos();

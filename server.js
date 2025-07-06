@@ -8,8 +8,11 @@ const PORT = 3000;
 const uploadDir = path.join(__dirname, "uploads");
 const videoDir = path.join(__dirname, "videos");
 
+app.use(express.json({ limit: '5mb' }));
+
 // Statischer Zugriff auf die App-Dateien
 app.use(express.static(path.join(__dirname, "src")));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Übersicht anzeigen
 app.get("/", (req, res) => {
@@ -42,6 +45,35 @@ app.get("/videos/list", (req, res) => {
       .reverse();
     res.json(userVideos);
   });
+});
+
+app.post('/upload', (req, res) => {
+  const { image, userId } = req.body;
+
+  const cleanId = (userId || 'anon').toString().replace(/[^a-z0-9]/gi, '_');
+
+  const now = new Date();
+  const date = now.toISOString().split('T')[0];
+  const time = now.toTimeString().split(' ')[0].replace(/:/g, '-');
+
+  const fileName = `${cleanId}__${date}__${time}.png`;
+  const filePath = path.join(__dirname, 'uploads', fileName);
+  const base64Data = image.replace(/^data:image\/png;base64,/, '');
+
+  fs.writeFile(filePath, base64Data, 'base64', (err) => {
+    if (err) {
+      console.error('❌ Fehler beim Speichern:', err);
+      return res.status(500).send('Fehler beim Speichern');
+    }
+
+    console.log('✅ Selfie gespeichert als:', fileName);
+    res.status(200).send('Bild gespeichert');
+  });
+});
+
+// API-Endpunkt für Uploads
+app.get("/selfie", (req, res) => {
+  res.sendFile(path.join(__dirname, "src", "selfie.html"));
 });
 
 // Server starten
