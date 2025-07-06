@@ -122,3 +122,9 @@ h2 {
 .show-more {
     margin-top: var(--s);
 }
+
+button:disabled {
+  background-color: color-mix(in srgb, var(--color-yellow), var(--color-black) 40%);
+  cursor: default;
+  opacity: 0.6;
+}

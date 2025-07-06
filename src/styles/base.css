@@ -135,7 +135,7 @@ button {
 }
 
 button:hover {
-  background-color: color-mix(in srgb, var(--color-yellow), black 10%);
+  background-color: color-mix(in srgb, var(--color-yellow), var(--color-black) 10%);
   cursor: pointer;
 }
 
