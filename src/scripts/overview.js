@@ -3,9 +3,14 @@ const progressNumber = document.querySelector('.progress-number');
 const progressText = document.querySelector('.progress-text');
 const generateRecapBtn = document.getElementById("generateRecapBtn");
 const videoSlider = document.getElementById('videoSlider');
-const maxValue = 30;
 
-// 1. User-ID holen oder erstellen
+// Maximale Anzahl an Selfies für das Recap-Video
+function getDaysInCurrentMonth() {
+    const now = new Date();
+    return new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+}
+
+// User-ID holen oder erstellen
 function getUserId() {
     let userId = localStorage.getItem("userId");
     if (!userId) {
@@ -15,15 +20,34 @@ function getUserId() {
     return userId;
 }
 
-// 2. Selfie-Anzahl abrufen
+// Selfie-Anzahl für aktuellen Monat abrufen
 async function fetchSelfieCount(userId) {
     const response = await fetch(`/uploads/list?userId=${userId}`);
     const files = await response.json();
-    return files.length;
+
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+
+    // Nur Bilder aus dem aktuellen Monat zählen
+    const currentMonthFiles = files.filter(filename => {
+        const parts = filename.split('__')[1]; // YYYY-MM-DD
+        if (!parts) return false;
+
+        const date = new Date(parts);
+        return (
+            date.getFullYear() === year &&
+            date.getMonth() === month
+        );
+    });
+
+    return currentMonthFiles.length;
 }
 
-// 3. Fortschrittsanzeige aktualisieren
+
+// Fortschrittsanzeige aktualisieren
 function setProgress(currentCount) {
+    const maxValue = getDaysInCurrentMonth();
     const value = Math.max(0, Math.min(currentCount, maxValue));
     progressNumber.textContent = value;
 
@@ -36,7 +60,7 @@ function setProgress(currentCount) {
         : `Recap-Video bereit!`;
 }
 
-// 4. Recap-Button aktivieren, wenn 30 Selfies im aktuellen Monat vorhanden
+// Recap-Button aktivieren, wenn 30 Selfies im aktuellen Monat vorhanden
 function isSameMonth(dateStr) {
     const date = new Date(dateStr);
     const now = new Date();
@@ -47,6 +71,7 @@ function isSameMonth(dateStr) {
 }
 
 async function checkRecapEligibility(userId) {
+    const maxValue = getDaysInCurrentMonth();
     const response = await fetch(`/uploads/list?userId=${userId}`);
     const files = await response.json();
 
@@ -56,10 +81,78 @@ async function checkRecapEligibility(userId) {
         return isSameMonth(parts);
     }).length;
 
-    generateRecapBtn.disabled = countThisMonth < 30;
+    generateRecapBtn.disabled = countThisMonth < maxValue;
 }
 
-// 5. Recap-Videos laden
+// Selfies der ersten Woche laden
+async function loadFirstWeekSelfies(userId) {
+    const response = await fetch(`/uploads/list?userId=${userId}`);
+    const files = await response.json();
+
+    const container = document.getElementById("firstWeekPictures");
+    container.innerHTML = "";
+
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+
+    const filtered = files.filter(filename => {
+        const parts = filename.split('__');
+        if (parts.length < 2) return false;
+
+        const datePart = parts[1]; // z. B. "2025-07-03"
+        const date = new Date(datePart);
+        return (
+            date.getFullYear() === year &&
+            date.getMonth() === month &&
+            date.getDate() >= 1 &&
+            date.getDate() <= 7
+        );
+    });
+
+    filtered.sort((a, b) => {
+        const dateA = new Date(a.split('__')[1]);
+        const dateB = new Date(b.split('__')[1]);
+        return dateA - dateB;
+    });
+
+    filtered.slice(0, 7).forEach(filename => {
+        const parts = filename.split('__');
+        const dateStr = parts[1]; // "YYYY-MM-DD"
+        const date = new Date(dateStr);
+
+        const weekday = date.toLocaleDateString('de-DE', { weekday: 'short' });
+        const day = date.getDate();
+        const dayFormatted = `${day}.`;
+
+        const li = document.createElement("li");
+        const innerList = document.createElement("ul");
+        innerList.classList.add("picture-item");
+
+        const dayText = document.createElement("p");
+        dayText.textContent = weekday.toUpperCase();
+
+        const dateText = document.createElement("p");
+        dateText.textContent = dayFormatted;
+
+        const img = document.createElement("img");
+        img.src = `/uploads/${filename}`;
+        img.alt = "Selfie";
+        img.loading = "lazy";
+
+        //const divider = document.createElement("hr");
+        innerList.appendChild(dayText);
+        //innerList.appendChild(divider);
+        innerList.appendChild(dateText);
+        innerList.appendChild(img);
+
+        li.appendChild(innerList);
+        container.appendChild(li);
+    });
+}
+
+
+// Recap-Videos laden
 function loadRecapVideos(userId) {
     fetch(`/videos/list?userId=${userId}`)
         .then(res => res.json())
@@ -95,12 +188,12 @@ function extractMonthFromFilename(filename) {
     return month;
 }
 
-// 6. Button "Selfie aufnehmen" verlinken
+// Button "Selfie aufnehmen" verlinken
 document.getElementById("startSelfie").addEventListener("click", () => {
     window.location.href = "/selfie";
 });
 
-// 7. DOM vollständig geladen? Dann alles ausführen
+// DOM vollständig geladen? Dann alles ausführen
 document.addEventListener('DOMContentLoaded', async () => {
     const userId = getUserId();
 
@@ -109,4 +202,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await checkRecapEligibility(userId);
     loadRecapVideos(userId);
+    updateCalendarHeader();
+    await loadFirstWeekSelfies(userId);
 });
+
+// Kalender-Header aktualisieren
+function updateCalendarHeader() {
+    const now = new Date();
+    const monthYear = now.toLocaleString('de-DE', { month: 'long', year: 'numeric' });
+    document.getElementById("calendar-month").textContent = monthYear;
+}
+
