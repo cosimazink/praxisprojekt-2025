@@ -1,0 +1,36 @@
+<!-- src/recapvideo.html -->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Zeitraffer-Video erstellen</title>
+  <link rel="stylesheet" href="/styles/combined.css"> <!-- angepasst -->
+</head>
+<body>
+  <h1>Zeitraffer-Video erstellen</h1>
+  <form id="config-form">
+    <label for="userId">User-ID:</label>
+    <input type="text" id="userId" required>
+
+    <label for="duration">Bilddauer (Sekunden):</label>
+    <input type="number" id="duration" step="0.1" value="0.2" required>
+
+    <label for="resolution">Auflösung (z.B. 640:480):</label>
+    <input type="text" id="resolution" value="640:480" required>
+
+    <label>
+      <input type="checkbox" id="includeAudio"> Hintergrundmusik einfügen
+    </label>
+
+    <button type="submit">Video generieren</button>
+  </form>
+
+  <div id="status"></div>
+  <div id="preview" style="display:none">
+    <h2>Vorschau</h2>
+    <video id="video" controls></video>
+  </div>
+
+  <script src="/scripts/recapvideo.js"></script>
+</body>
+</html>

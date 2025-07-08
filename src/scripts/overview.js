@@ -193,6 +193,10 @@ document.getElementById("startSelfie").addEventListener("click", () => {
     window.location.href = "/selfie";
 });
 
+generateRecapBtn.addEventListener("click", () => {
+  window.location.href = "/recapvideo.html";
+});
+
 // DOM vollständig geladen? Dann alles ausführen
 document.addEventListener('DOMContentLoaded', async () => {
     const userId = getUserId();
