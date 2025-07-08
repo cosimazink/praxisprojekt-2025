@@ -137,8 +137,17 @@ h2 {
 }
  */
 
+.previous-month-label {
+    font-family: var(--ff-secondary);
+    font-size: var(--fs-m);
+    margin-top: var(--m);
+    margin-bottom: 0;
+    grid-column: span 7;
+}
+
 .pictures {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
     gap: var(--s);
     list-style: none;
     padding: 0;
@@ -151,30 +160,19 @@ h2 {
     align-items: flex-start;
     justify-content: flex-start;
     gap: var(--xs);
+    font-family: var(--ff-secondary);
 }
 
 .picture-item p {
-    font-family: var(--ff-secondary);
     font-size: var(--fs-s);
     color: var(--color-grey-dark);
     margin: 0;
-    margin-bottom: var(--xs);
     line-height: 1.2;
 }
-
-/* ???
-.picture-item hr {
-  width: 100%;
-  border: none;
-  border-top: 1px solid var(--color-grey-dark);
-  margin: 0.2rem 0;
-} */
 
 .picture-item img {
     width: 45px;
     height: 55px;
-    overflow: hidden;
-
     object-fit: cover;
     object-position: center;
     display: block;
@@ -183,10 +181,76 @@ h2 {
 
 .show-more {
     margin-top: var(--s);
+    text-decoration: underline;
 }
 
 button:disabled {
     background-color: color-mix(in srgb, var(--color-yellow), var(--color-black) 40%);
     cursor: default;
     opacity: 0.6;
+}
+
+/* Modal Overlay */
+#selfieModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85);
+    justify-content: center;
+    align-items: center;
+}
+
+#selfieModal.active {
+    display: flex;
+}
+
+/* Modal-Wrapper (zum Klicken auf Hintergrund) */
+.modal-content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Modal-Inhalt */
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Damit das X rechtsbündig ist */
+}
+
+/* Modal-Bild */
+.modal-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* X-Schließen-Button */
+.modal-close {
+    background: transparent;
+    color: var(--color-white);
+    font-size: var(--fs-logo-mobile);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: var(--xs);
+}
+
+/* Download-Link */
+.modal-download {
+    display: block;
+    margin-top: var(--s);
+    text-align: center;
+    color: var(--color-white);
+    text-decoration: underline;
+    font-size: var(--fs-m);
 }

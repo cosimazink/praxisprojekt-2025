@@ -206,6 +206,53 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadFirstWeekSelfies(userId);
 });
 
+// Modal-Elemente erzeugen
+const modal = document.createElement("div");
+modal.id = "selfieModal";
+modal.innerHTML = `
+  <div class="modal-content-wrapper">
+    <div class="modal-content">
+      <button class="modal-close">&times;</button>
+      <img id="modalImage" src="" alt="Selfie Großansicht" />
+      <a id="downloadLink" class="modal-download" href="#" download>Bild herunterladen</a>
+    </div>
+  </div>
+`;
+document.body.appendChild(modal);
+
+// Event Listener zum Schließen
+modal.querySelector(".modal-close").addEventListener("click", () => {
+  modal.classList.remove("active");
+});
+
+// Bild-Click-Handler hinzufügen
+document.addEventListener("click", function (e) {
+  if (e.target.tagName === "IMG" && e.target.closest(".picture-item")) {
+    const imgSrc = e.target.getAttribute("src");
+    document.getElementById("modalImage").src = imgSrc;
+    document.getElementById("downloadLink").href = imgSrc;
+    modal.classList.add("active");
+  }
+});
+
+// Schließen, wenn außerhalb von Bild oder Download geklickt wird
+modal.addEventListener("click", function (e) {
+  const isClickInsideImage = e.target.closest(".modal-content");
+  if (!isClickInsideImage) {
+    modal.classList.remove("active");
+  }
+});
+
+// Bild-Klick öffnet Modal
+document.addEventListener("click", function (e) {
+  if (e.target.tagName === "IMG" && e.target.closest(".picture-item")) {
+    const imgSrc = e.target.getAttribute("src");
+    document.getElementById("modalImage").src = imgSrc;
+    document.getElementById("downloadLink").href = imgSrc;
+    modal.classList.add("active");
+  }
+});
+
 // Kalender-Header aktualisieren
 function updateCalendarHeader() {
     const now = new Date();
@@ -213,3 +260,126 @@ function updateCalendarHeader() {
     document.getElementById("calendar-month").textContent = monthYear;
 }
 
+// Button "Mehr anzeigen" für erweiterte Monatsansicht
+let expanded = false;
+
+document.querySelector('.show-more').addEventListener('click', async function () {
+    expanded = !expanded;
+    this.textContent = expanded ? "Weniger anzeigen" : "Mehr anzeigen";
+
+    if (expanded) {
+        await renderFullMonth();
+        await renderPreviousMonths();
+    } else {
+        await loadFirstWeekSelfies(getUserId());
+        // Optional: vorherige Monate aus dem DOM entfernen
+        document.querySelectorAll('.previous-month').forEach(el => el.remove());
+    }
+});
+
+// Aktuellen Monate im Kalender rendern
+async function renderFullMonth() {
+    const container = document.getElementById("firstWeekPictures");
+    container.innerHTML = "";
+
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const userId = getUserId();
+
+    const response = await fetch(`/uploads/list?userId=${userId}`);
+    const files = await response.json();
+
+    const filtered = files.filter(filename => {
+        const parts = filename.split('__')[1];
+        if (!parts) return false;
+
+        const date = new Date(parts);
+        return date.getFullYear() === year && date.getMonth() === month;
+    });
+
+    filtered.sort((a, b) => new Date(a.split('__')[1]) - new Date(b.split('__')[1]));
+
+    filtered.forEach(filename => {
+        const date = new Date(filename.split('__')[1]);
+        const weekday = date.toLocaleDateString('de-DE', { weekday: 'short' }).toUpperCase();
+        const dayFormatted = `${date.getDate()}.`;
+
+        const li = document.createElement("li");
+        const innerList = document.createElement("ul");
+        innerList.className = "picture-item";
+
+        const dayText = document.createElement("p");
+        dayText.textContent = weekday;
+
+        const dateText = document.createElement("p");
+        dateText.textContent = dayFormatted;
+
+        const img = document.createElement("img");
+        img.src = `/uploads/${filename}`;
+        img.alt = "Selfie";
+
+        innerList.appendChild(dayText);
+        innerList.appendChild(dateText);
+        innerList.appendChild(img);
+        li.appendChild(innerList);
+        container.appendChild(li);
+    });
+}
+
+// Vorherige Monate rendern
+async function renderPreviousMonths() {
+    const userId = getUserId();
+    const response = await fetch(`/uploads/list?userId=${userId}`);
+    const files = await response.json();
+
+    const byMonth = new Map();
+    files.forEach(filename => {
+        const parts = filename.split('__')[1];
+        if (!parts) return;
+        const date = new Date(parts);
+        const key = `${date.getFullYear()}-${date.getMonth()}`;
+        if (!byMonth.has(key)) byMonth.set(key, []);
+        byMonth.get(key).push({ date, filename });
+    });
+
+    const current = new Date();
+    const container = document.getElementById("firstWeekPictures");
+
+    for (const [key, entries] of byMonth) {
+        const [y, m] = key.split('-').map(Number);
+        if (y === current.getFullYear() && m === current.getMonth()) continue;
+
+        const label = document.createElement("p");
+        label.className = "previous-month-label";
+        label.textContent = new Date(y, m).toLocaleDateString('de-DE', { month: 'long', year: 'numeric' });
+        container.appendChild(label);
+
+        entries.sort((a, b) => a.date - b.date);
+
+        entries.forEach(({ date, filename }) => {
+            const weekday = date.toLocaleDateString('de-DE', { weekday: 'short' }).toUpperCase();
+            const dayFormatted = `${date.getDate()}.`;
+
+            const li = document.createElement("li");
+            const innerList = document.createElement("ul");
+            innerList.className = "picture-item";
+
+            const dayText = document.createElement("p");
+            dayText.textContent = weekday;
+
+            const dateText = document.createElement("p");
+            dateText.textContent = dayFormatted;
+
+            const img = document.createElement("img");
+            img.src = `/uploads/${filename}`;
+            img.alt = "Selfie";
+
+            innerList.appendChild(dayText);
+            innerList.appendChild(dateText);
+            innerList.appendChild(img);
+            li.appendChild(innerList);
+            container.appendChild(li);
+        });
+    }
+}
