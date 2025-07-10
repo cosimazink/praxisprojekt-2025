@@ -1,36 +1,93 @@
-<!-- src/recapvideo.html -->
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>Zeitraffer-Video erstellen</title>
-  <link rel="stylesheet" href="/styles/combined.css"> <!-- angepasst -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zeitraffer-Video erstellen</title>
+    <link rel="stylesheet" href="/styles/combined.css">
+    <link rel="stylesheet" href="/styles/recapvideo.css">
 </head>
+
 <body>
-  <h1>Zeitraffer-Video erstellen</h1>
-  <form id="config-form">
-    <label for="userId">User-ID:</label>
-    <input type="text" id="userId" required>
+    <header>
+        <div class="logo-container">
+            <img class="mira-logo" src="/assets/mira-logo.png" alt="mira-logo">
+            <p class="logo-text">My Image <br> Reflection Application</p>
+        </div>
+        <img class="burger-menu" src="/assets/burger-menu.png" alt="burger-menu">
+    </header>
 
-    <label for="duration">Bilddauer (Sekunden):</label>
-    <input type="number" id="duration" step="0.1" value="0.2" required>
+    <main>
+        <h1>Recap-Video</h1>
 
-    <label for="resolution">Auflösung (z.B. 640:480):</label>
-    <input type="text" id="resolution" value="640:480" required>
+        <form id="config-form">
+            <input type="hidden" id="userId">
 
-    <label>
-      <input type="checkbox" id="includeAudio"> Hintergrundmusik einfügen
-    </label>
+            <fieldset>
+                <legend class="settings-caption">Einstellungen</legend>
+                <div class="settings">
+                    <label for="monthSelect">
+                        Monat auswählen
+                        <p>Selfies aus jeweiligem Monat</p>
+                    </label>
+                    <select id="monthSelect"></select>
 
-    <button type="submit">Video generieren</button>
-  </form>
+                    <label for="duration">
+                        Bilddauer
+                        <p>Dauer jedes Bildes im Video in Sekunden</p>
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="number" id="duration" step="0.1" value="0.2" required />
+                    </div>
 
-  <div id="status"></div>
-  <div id="preview" style="display:none">
-    <h2>Vorschau</h2>
-    <video id="video" controls></video>
-  </div>
+                    <label for="resolution">
+                        Auflösung
+                        <p>Ausgabegröße des Videos</p>
+                    </label>
+                    <select id="resolution" required>
+                        <option value="640:480">640×480 (SD)</option>
+                        <option value="1280:720">1280×720 (HD)</option>
+                        <option value="1920:1080">1920×1080 (Full HD)</option>
+                        <option value="1080:1080">1080×1080 (1:1 Quadrat)</option>
+                    </select>
+                </div>
+            </fieldset>
 
-  <script src="/scripts/recapvideo.js"></script>
+            <fieldset>
+                <legend class="settings-caption">Zusätzlich</legend>
+                <div class="settings">
+                    <label for="transition">
+                        Übergangseffekte
+                        <p>Übergänge zwischen den Bildern</p>
+                    </label>
+                    <select id="transition" name="transition">
+                        <option value="none">Kein Übergang</option>
+                        <option value="fade">Weiche Überblendung (Fade)</option>
+                        <option value="slide">Slide (von links)</option>
+                        <option value="zoom">Zoom</option>
+                    </select>
+
+                    <label for="includeAudio">
+                        <input type="checkbox" id="includeAudio" />
+                        Hintergrundmusik einfügen
+                    </label>
+                </div>
+            </fieldset>
+
+            <button type="submit">Video generieren</button>
+        </form>
+
+    </main>
+
+    <footer>
+        <p>2025 Mira <br> My Image Reflection Application <br> Cosima Hiromi Zink – Praxisprojekt</p>
+        <a href="https://github.com/cosimazink/praxisprojekt-2025" aria-label="GitHub Repository">
+            <img src="/assets/github-logo.png" alt="GitHub">
+        </a>
+    </footer>
+
+    <script src="/scripts/recapvideo.js"></script>
 </body>
+
 </html>

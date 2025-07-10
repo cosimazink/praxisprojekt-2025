@@ -70,7 +70,8 @@ function isSameMonth(dateStr) {
     );
 }
 
-async function checkRecapEligibility(userId) {
+// Überprüft, ob der Nutzer genug Selfies für das Recap-Video hat
+/* async function checkRecapEligibility(userId) {
     const maxValue = getDaysInCurrentMonth();
     const response = await fetch(`/uploads/list?userId=${userId}`);
     const files = await response.json();
@@ -82,7 +83,7 @@ async function checkRecapEligibility(userId) {
     }).length;
 
     generateRecapBtn.disabled = countThisMonth < maxValue;
-}
+} */
 
 // Selfies der ersten Woche laden
 async function loadFirstWeekSelfies(userId) {
@@ -204,7 +205,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const selfieCount = await fetchSelfieCount(userId);
     setProgress(selfieCount);
 
-    await checkRecapEligibility(userId);
+    //await checkRecapEligibility(userId);
     loadRecapVideos(userId);
     updateCalendarHeader();
     await loadFirstWeekSelfies(userId);

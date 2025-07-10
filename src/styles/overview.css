@@ -64,11 +64,6 @@ h2 {
     height: 6px;
 }
 
-.video-slider::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 3px;
-}
-
 .video-thumbnail {
     position: relative;
     flex: 0 0 auto;
@@ -92,7 +87,7 @@ h2 {
     position: absolute;
     top: 8px;
     left: 8px;
-    color: #fff;
+    color: var(--color-yellow);
     font-size: var(--fs-s);
     font-weight: bold;
     background-color: rgba(0, 0, 0, 0.6);
