@@ -7,6 +7,8 @@
     <title>Zeitraffer-Video erstellen</title>
     <link rel="stylesheet" href="/styles/combined.css">
     <link rel="stylesheet" href="/styles/recapvideo.css">
+
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -29,13 +31,13 @@
                 <div class="settings">
                     <label for="monthSelect">
                         Monat auswählen
-                        <p>Selfies aus jeweiligem Monat</p>
+                        <span><br>Selfies aus jeweiligem Monat</span>
                     </label>
                     <select id="monthSelect"></select>
 
                     <label for="duration">
                         Bilddauer
-                        <p>Dauer jedes Bildes im Video in Sekunden</p>
+                        <span><br>Dauer jedes Bildes im Video in Sekunden</span>
                     </label>
                     <div class="input-wrapper">
                         <input type="number" id="duration" step="0.1" value="0.2" required />
@@ -43,9 +45,10 @@
 
                     <label for="resolution">
                         Auflösung
-                        <p>Ausgabegröße des Videos</p>
+                        <span><br>Ausgabegröße des Videos</span>
                     </label>
                     <select id="resolution" required>
+                        <option value="" disabled selected>Auflösung wählen</option>
                         <option value="640:480">640×480 (SD)</option>
                         <option value="1280:720">1280×720 (HD)</option>
                         <option value="1920:1080">1920×1080 (Full HD)</option>
@@ -57,26 +60,34 @@
             <fieldset>
                 <legend class="settings-caption">Zusätzlich</legend>
                 <div class="settings">
-                    <label for="transition">
-                        Übergangseffekte
-                        <p>Übergänge zwischen den Bildern</p>
+                    <label for="music">
+                        Musik
+                        <span><br>Übergänge zwischen den Bildern</span>
                     </label>
-                    <select id="transition" name="transition">
-                        <option value="none">Kein Übergang</option>
-                        <option value="fade">Weiche Überblendung (Fade)</option>
-                        <option value="slide">Slide (von links)</option>
-                        <option value="zoom">Zoom</option>
+                    <select id="music" name="music">
+                        <option value="" disabled selected>Musik wählen</option>
+                        <option value="none">Keine Musik</option>
+                        <option value="alone-zukuenftiger-bass.mp3">Zukünftiger Bass</option>
+                        <option value="embrace-elektronisch.mp3">Elektronisch</option>
+                        <option value="gardens-stylish-chill-Rnb.mp3">Rnb</option>
                     </select>
-
-                    <label for="includeAudio">
-                        <input type="checkbox" id="includeAudio" />
-                        Hintergrundmusik einfügen
-                    </label>
                 </div>
             </fieldset>
 
             <button type="submit">Video generieren</button>
         </form>
+
+        <div id="status"></div>
+        <div id="preview">
+            <h2>Vorschau</h2>
+            <video id="video" controls></video>
+        </div>
+
+        <div id="video-options">
+            <a id="downloadLink" href="#" download>Herunterladen</a>
+            <a id="shareLink" href="#" target="_blank"></a>
+        </div>
+
 
     </main>
 

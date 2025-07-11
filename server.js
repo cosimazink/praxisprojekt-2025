@@ -22,8 +22,17 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "src", "overview.html"));
 });
 
-app.get("/recapvideo.html", (req, res) => {
+app.get("/recapvideo", (req, res) => {
     res.sendFile(path.join(__dirname, "src", "recapvideo.html"));
+});
+
+app.get("/watch", (req, res) => {
+    res.sendFile(path.join(__dirname, "src", "watch.html"));
+});
+
+// API-Endpunkt für Uploads
+app.get("/selfie", (req, res) => {
+    res.sendFile(path.join(__dirname, "src", "selfie.html"));
 });
 
 
@@ -79,13 +88,9 @@ app.post('/upload', (req, res) => {
     });
 });
 
-// API-Endpunkt für Uploads
-app.get("/selfie", (req, res) => {
-    res.sendFile(path.join(__dirname, "src", "selfie.html"));
-});
 
 app.post('/generate', async (req, res) => {
-    const { userId, duration, resolution, includeAudio } = req.body;
+    const { userId, duration, resolution, music } = req.body;
     const selectedMonth = parseInt(req.body.month, 10) - 1; // Monat: 0-basiert
     const selectedYear = parseInt(req.body.year, 10);
     const cleanId = (userId || 'anon').replace(/[^a-z0-9]/gi, '_');
@@ -141,11 +146,16 @@ app.post('/generate', async (req, res) => {
             command.input(fileListPath)
                 .inputOptions(['-f concat', '-safe 0']);
 
-            const musicPath = path.join(__dirname, 'assets', 'music.mp3');
-            if (includeAudio && fs.existsSync(musicPath)) {
-                command.input(musicPath)
-                    .outputOptions(['-c:a aac', '-shortest']);
+            if (music && music !== 'none') {
+                const musicPath = path.join(__dirname, 'src' , 'assets', 'music', music);
+                if (fs.existsSync(musicPath)) {
+                    command.input(musicPath);
+                    command.outputOptions(['-c:a aac', '-shortest']);
+                } else {
+                    console.warn(`⚠️ Musikdatei nicht gefunden: ${music}`);
+                }
             }
+
 
             command
                 .outputOptions([

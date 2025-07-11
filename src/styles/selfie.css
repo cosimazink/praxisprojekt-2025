@@ -19,8 +19,17 @@
 }
 
 #canvas {
+    display:none;
     width: 100%;
     border-radius: var(--s);
+}
+
+#retry {
+    display: none;
+}
+
+#save {
+    display: none;
 }
 
 h2 {

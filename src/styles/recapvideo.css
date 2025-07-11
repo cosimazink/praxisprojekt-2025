@@ -5,6 +5,14 @@ h1 {
     margin-bottom: var(--xxl);
 }
 
+button {
+    margin-bottom: var(--m);
+}
+
+footer {
+    margin-top: var(--m);
+}
+
 .settings {
     display: flex;
     flex-direction: column;
@@ -15,14 +23,18 @@ h1 {
     padding: var(--l);
     font-family: var(--ff-secondary);
     font-size: var(--fs-m);
-    margin-bottom: var(--xxxl);
+    margin-bottom: var(--xxl);
     
-    p {
+    span {
         color: var(--color-grey-light);
         font-family: var(--ff-primary);
         font-size: var(--fs-s);
         margin: 0;
     }
+}
+
+legend{
+    margin-bottom: var(--s);
 }
 
 .settings-caption {
@@ -85,4 +97,39 @@ h1 {
     background-repeat: no-repeat;
     background-position: right var(--s) center;
     background-size: var(--l);
+}
+
+#preview {
+    display: none;
+    margin-top: var(--m);
+    text-align: start;
+    margin-bottom: var(--l);
+}
+
+#preview video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--xs);
+}
+
+#video-options {
+    display: none;
+}
+
+#downloadLink {
+    display: block;
+    color: var(--color-white);
+    text-decoration: underline;
+    font-weight: var(--fw-regular);
+    margin-bottom: var(--m);
+}
+
+#shareLink {
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    color: var(--color-white);
+    text-decoration: underline;
+    margin-bottom: var(--m);
 }
