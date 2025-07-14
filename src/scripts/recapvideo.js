@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("userId").value = userId;
 
     populateMonthSelect();
+    filterResolutionsByAspectRatio(userId);
 });
 
 document.getElementById('config-form').addEventListener('submit', async (e) => {
@@ -46,9 +47,11 @@ document.getElementById('config-form').addEventListener('submit', async (e) => {
 
         // Share-Link generieren (z. B. mit Token oder temporärer URL)
         const shareLink = document.getElementById("shareLink");
-        const absoluteUrl = `${window.location.origin}${data.videoUrl}`;
-        shareLink.href = absoluteUrl;
-        shareLink.textContent = absoluteUrl;
+        const videoFileName = data.videoUrl.split("/").pop();
+        const watchUrl = `${window.location.origin}/watch?v=${encodeURIComponent(videoFileName)}`;
+        shareLink.href = watchUrl;
+        shareLink.textContent = watchUrl;
+
 
 
         document.getElementById("video-options").style.display = "block";
@@ -80,6 +83,36 @@ function populateMonthSelect() {
         if (i === 0) option.selected = true;
 
         monthSelect.appendChild(option);
+    }
+}
+
+// Funktion zum Filtern der Auflösungen basierend auf dem Seitenverhältnis des ersten Bildes
+async function filterResolutionsByAspectRatio(userId) {
+    try {
+        const response = await fetch(`/uploads/list?userId=${userId}`);
+        const files = await response.json();
+
+        if (files.length === 0) return;
+
+        const firstImageUrl = `/uploads/${files[0]}`;
+        const img = new Image();
+        img.src = firstImageUrl;
+
+        img.onload = () => {
+            const ratio = (img.width / img.height).toFixed(2);
+            const resolutionSelect = document.getElementById("resolution");
+            const options = resolutionSelect.querySelectorAll("option");
+
+            options.forEach(option => {
+                const [w, h] = option.value.split(":").map(Number);
+                if (!w || !h) return;
+
+                const optionRatio = (w / h).toFixed(2);
+                option.hidden = ratio !== optionRatio;
+            });
+        };
+    } catch (err) {
+        console.error("Auflösungsfilterung fehlgeschlagen:", err);
     }
 }
 

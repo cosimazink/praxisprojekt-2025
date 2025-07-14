@@ -49,11 +49,28 @@
                     </label>
                     <select id="resolution" required>
                         <option value="" disabled selected>Auflösung wählen</option>
-                        <option value="640:480">640×480 (SD)</option>
-                        <option value="1280:720">1280×720 (HD)</option>
-                        <option value="1920:1080">1920×1080 (Full HD)</option>
-                        <option value="1080:1080">1080×1080 (1:1 Quadrat)</option>
+
+                        <!-- 4:3 Formate -->
+                        <option value="640:480">640×480 (4:3 SD)</option>
+                        <option value="800:600">800×600 (4:3)</option>
+                        <option value="1024:768">1024×768 (4:3)</option>
+
+                        <!-- 16:9 Formate -->
+                        <option value="1280:720">1280×720 (HD 16:9)</option>
+                        <option value="1920:1080">1920×1080 (Full HD 16:9)</option>
+
+                        <!-- 1:1 Format -->
+                        <option value="1080:1080">1080×1080 (Quadrat 1:1)</option>
+
+                        <!-- 9:16 Portrait (Smartphone) -->
+                        <option value="720:1280">720×1280 (Smartphone Hochformat)</option>
+                        <option value="1080:1920">1080×1920 (Smartphone Hochformat)</option>
+
+                        <!-- 3:4 Portrait -->
+                        <option value="720:960">720×960 (3:4 Portrait)</option>
+                        <option value="1080:1440">1080×1440 (3:4 Portrait)</option>
                     </select>
+
                 </div>
             </fieldset>
 

@@ -144,6 +144,7 @@ footer {
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  margin-top: var(--xl);
   padding: var(--xl) var(--xxl);
   background-color: var(--color-white);
   width: 100%;
