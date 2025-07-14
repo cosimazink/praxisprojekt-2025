@@ -7,7 +7,9 @@
     <title>mira</title>
 
     <link rel="stylesheet" href="/styles/combined.css">
-    <link rel="stylesheet" href="/styles/overview.css" />
+    <link rel="stylesheet" href="/styles/overview.css">
+
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -28,7 +30,7 @@
     </header>
 
     <main>
-        <div>
+        <div id="welcomeText">
             <h1>Willkommen!</h1>
             <p>
                 Dein persönliches Selfie-Tagebuch wartet auf dich.
@@ -37,50 +39,36 @@
             <p>Jeder Tag zählt!</p>
         </div>
 
+
         <button id="startSelfie">
             <span class="icon">photo_camera</span>
             Heutiges Selfie aufnehmen
         </button>
+        <p id="selfieNotice" class="info-text"></p>
+
 
         <div class="wrapper">
             <div class="progress-circle">
-                <div class="progress-number">0</div>
+                <div class="progress-number"></div>
             </div>
-            <p class="progress-text">Noch 8 Selfies <br> bis zum Recap-Video</p>
+            <p class="progress-text"></p>
         </div>
 
         <section class="video-overview">
             <h2>Recap-Videos</h2>
             <div class="video-slider" id="videoSlider"></div>
-            <button>
+            <button id="generateRecapBtn"> <!-- war zuvor disabled -->
                 <span class="icon">videocam</span>
                 Recap-Video erstellen
             </button>
+
         </section>
 
         <section class="selfie-overview">
             <h2>Selfie Übersicht</h2>
             <div class="calendar">
-                <p>Mai 2025</p>
-                <ul class="weekdays">
-                    <li>Mo</li>
-                    <li>Di</li>
-                    <li>Mi</li>
-                    <li>Do</li>
-                    <li>Fr</li>
-                    <li>Sa</li>
-                    <li>So</li>
-                </ul>
-                <ul class="days">
-                    <li class="day">1</li>
-                    <li class="day">2</li>
-                    <li class="day">3</li>
-                    <li class="day">4</li>
-                    <li class="day">5</li>
-                    <li class="day">6</li>
-                    <li class="day">7</li>
-                </ul>
-                <div class="selfies" id="selfies"></div>
+                <p id="calendar-month"></p>
+                <ul class="pictures" id="firstWeekPictures"></ul>
                 <p class="show-more">Mehr anzeigen</p>
             </div>
         </section>

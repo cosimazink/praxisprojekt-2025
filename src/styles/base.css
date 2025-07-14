@@ -97,6 +97,7 @@ h1 {
   font-family: var(--ff-logo);
   font-weight: var(--fw-logo);
   font-size: var(--fs-logo);
+  line-height: 35px;
 }
 
 h2 {
@@ -135,7 +136,7 @@ button {
 }
 
 button:hover {
-  background-color: color-mix(in srgb, var(--color-yellow), black 10%);
+  background-color: color-mix(in srgb, var(--color-yellow), var(--color-black) 10%);
   cursor: pointer;
 }
 
@@ -144,6 +145,7 @@ footer {
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  margin-top: var(--xl);
   padding: var(--xl) var(--xxl);
   background-color: var(--color-white);
   width: 100%;

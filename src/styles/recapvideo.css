@@ -1,0 +1,135 @@
+h1 {
+    font-size: var(--fs-logo-mobile);
+    font-weight: var(--fw-bold);
+    margin-top: var(--xxxl);
+    margin-bottom: var(--xxl);
+}
+
+button {
+    margin-bottom: var(--m);
+}
+
+footer {
+    margin-top: var(--m);
+}
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s);
+    background-color: var(--color-grey-darkest);
+    border-radius: var(--xs);
+    padding: var(--l);
+    font-family: var(--ff-secondary);
+    font-size: var(--fs-m);
+    margin-bottom: var(--xxl);
+    
+    span {
+        color: var(--color-grey-light);
+        font-family: var(--ff-primary);
+        font-size: var(--fs-s);
+        margin: 0;
+    }
+}
+
+legend{
+    margin-bottom: var(--s);
+}
+
+.settings-caption {
+    font-size: var(--fs-m);
+    font-family: var(--ff-secondary);
+}
+
+.settings input,
+.settings select {
+    width: 100%;
+    background-color: var(--color-grey-light);
+    border: none;
+    color: var(--color-black);
+    font-size: var(--fs-s);
+    padding: var(--s);
+    border-radius: var(--xs);
+    font-family: var(--ff-secondary);
+    box-sizing: border-box;
+    outline: none;
+}
+
+.settings input:focus,
+.settings select:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.unit-label {
+    font-weight: normal;
+    font-size: var(--fs-s);
+    color: var(--color-grey-light);
+    margin-left: 0.3rem;
+}
+
+/* Wrapper für Einheit */
+.input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.input-wrapper input {
+    padding-right: 5rem; /* Platz für "Sekunden" */
+}
+
+/* Sekunden-Einheit im Feld */
+.input-suffix {
+    position: absolute;
+    right: var(--s);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-grey-light);
+    font-size: var(--fs-s);
+    pointer-events: none;
+}
+
+/* Dropdown-Styling (nur optisch) */
+.settings select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='%23222222' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--s) center;
+    background-size: var(--l);
+}
+
+#preview {
+    display: none;
+    margin-top: var(--m);
+    text-align: start;
+    margin-bottom: var(--l);
+}
+
+#preview video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--xs);
+}
+
+#video-options {
+    display: none;
+}
+
+#downloadLink {
+    display: block;
+    color: var(--color-white);
+    text-decoration: underline;
+    font-weight: var(--fw-regular);
+    margin-bottom: var(--m);
+}
+
+#shareLink {
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    color: var(--color-white);
+    text-decoration: underline;
+    margin-bottom: var(--m);
+}

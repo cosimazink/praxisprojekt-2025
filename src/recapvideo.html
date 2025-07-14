@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zeitraffer-Video erstellen</title>
+    <link rel="stylesheet" href="/styles/combined.css">
+    <link rel="stylesheet" href="/styles/recapvideo.css">
+
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <img class="mira-logo" src="/assets/mira-logo.png" alt="mira-logo">
+            <p class="logo-text">My Image <br> Reflection Application</p>
+        </div>
+        <img class="burger-menu" src="/assets/burger-menu.png" alt="burger-menu">
+    </header>
+
+    <main>
+        <h1>Recap-Video</h1>
+
+        <form id="config-form">
+            <input type="hidden" id="userId">
+
+            <fieldset>
+                <legend class="settings-caption">Einstellungen</legend>
+                <div class="settings">
+                    <label for="monthSelect">
+                        Monat auswählen
+                        <span><br>Selfies aus jeweiligem Monat</span>
+                    </label>
+                    <select id="monthSelect"></select>
+
+                    <label for="duration">
+                        Bilddauer
+                        <span><br>Dauer jedes Bildes im Video in Sekunden</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="number" id="duration" step="0.1" value="0.2" required />
+                    </div>
+
+                    <label for="resolution">
+                        Auflösung
+                        <span><br>Ausgabegröße des Videos</span>
+                    </label>
+                    <select id="resolution" required>
+                        <option value="" disabled selected>Auflösung wählen</option>
+
+                        <!-- 4:3 Formate -->
+                        <option value="640:480">640×480 (4:3 SD)</option>
+                        <option value="800:600">800×600 (4:3)</option>
+                        <option value="1024:768">1024×768 (4:3)</option>
+
+                        <!-- 16:9 Formate -->
+                        <option value="1280:720">1280×720 (HD 16:9)</option>
+                        <option value="1920:1080">1920×1080 (Full HD 16:9)</option>
+
+                        <!-- 1:1 Format -->
+                        <option value="1080:1080">1080×1080 (Quadrat 1:1)</option>
+
+                        <!-- 9:16 Portrait (Smartphone) -->
+                        <option value="720:1280">720×1280 (Smartphone Hochformat)</option>
+                        <option value="1080:1920">1080×1920 (Smartphone Hochformat)</option>
+
+                        <!-- 3:4 Portrait -->
+                        <option value="720:960">720×960 (3:4 Portrait)</option>
+                        <option value="1080:1440">1080×1440 (3:4 Portrait)</option>
+                    </select>
+
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend class="settings-caption">Zusätzlich</legend>
+                <div class="settings">
+                    <label for="music">
+                        Musik
+                        <span><br>Übergänge zwischen den Bildern</span>
+                    </label>
+                    <select id="music" name="music">
+                        <option value="" disabled selected>Musik wählen</option>
+                        <option value="none">Keine Musik</option>
+                        <option value="alone-zukuenftiger-bass.mp3">Zukünftiger Bass</option>
+                        <option value="embrace-elektronisch.mp3">Elektronisch</option>
+                        <option value="gardens-stylish-chill-Rnb.mp3">Rnb</option>
+                    </select>
+                </div>
+            </fieldset>
+
+            <button type="submit">Video generieren</button>
+        </form>
+
+        <div id="status"></div>
+        <div id="preview">
+            <h2>Vorschau</h2>
+            <video id="video" controls></video>
+        </div>
+
+        <div id="video-options">
+            <a id="downloadLink" href="#" download>Herunterladen</a>
+            <a id="shareLink" href="#" target="_blank"></a>
+        </div>
+
+
+    </main>
+
+    <footer>
+        <p>2025 Mira <br> My Image Reflection Application <br> Cosima Hiromi Zink – Praxisprojekt</p>
+        <a href="https://github.com/cosimazink/praxisprojekt-2025" aria-label="GitHub Repository">
+            <img src="/assets/github-logo.png" alt="GitHub">
+        </a>
+    </footer>
+
+    <script src="/scripts/recapvideo.js"></script>
+</body>
+
+</html>

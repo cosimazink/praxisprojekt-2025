@@ -1,13 +1,11 @@
-/* selfie.css */
-
 .video-wrapper {
   position: relative;
   width: 100%;
-  padding-top: 75%; /* 4:3 aspect ratio (height is 75% of width for a common camera aspect ratio) */
+  padding-top: 75%; 
   overflow: hidden;
-  background-color: var(--color-black); /* Fallback background */
-  border-radius: var(--s); /* Slightly rounded corners for the video area */
-  margin-bottom: var(--l); /* Space between video and buttons */
+  background-color: var(--color-black); 
+  border-radius: var(--s); 
+  margin-bottom: var(--l); 
 }
 
 .video-wrapper video {
@@ -16,17 +14,69 @@
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensures the video covers the area without distortion */
-  transform: scaleX(-1); /* Flip horizontally for a mirror effect common in selfies */
+  object-fit: cover; 
+  transform: scaleX(-1); 
 }
 
 #canvas {
+    display:none;
     width: 100%;
     border-radius: var(--s);
+}
+
+#retry {
+    display: none;
+}
+
+#save {
+    display: none;
 }
 
 h2 {
     margin-top: var(--xxxl);
     margin-bottom: var(--l);
     padding: 0;
+}
+
+#flash-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  opacity: 0;
+  z-index: 999;
+  pointer-events: none;
+  transition: opacity 0.1s ease;
+}
+
+.flash-button {
+  position: absolute;
+  top: 190px;
+  right: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+button#toggleFlash.flash-button {
+  position: absolute;
+  top: 190px;
+  right: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+button#toggleFlash.flash-button .icon {
+  font-size: 2rem;
+  color: var(--color-white);
+  transition: opacity 1s ease;
+}
+
+button#toggleFlash.flash-button.active .icon {
+  opacity: 1;
 }

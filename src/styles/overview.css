@@ -15,7 +15,12 @@ h2 {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    margin-top: var(--xxxl);
     margin-bottom: var(--xxxl);
+}
+
+#startSelfie {
+    margin-bottom: 0;
 }
 
 .progress-circle {
@@ -54,52 +59,47 @@ h2 {
 /* Recap Videos */
 
 .video-slider {
-  display: flex;
-  overflow-x: auto;
-  gap: var(--s);
-  scroll-snap-type: x mandatory;
+    display: flex;
+    overflow-x: auto;
+    gap: var(--s);
+    scroll-snap-type: x mandatory;
 }
 
 .video-slider::-webkit-scrollbar {
-  height: 6px;
-}
-
-.video-slider::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 3px;
+    height: 6px;
 }
 
 .video-thumbnail {
-  position: relative;
-  flex: 0 0 auto;
-  width: 160px;
-  height: 90px;
-  border-radius: 8px;
-  overflow: hidden;
-  scroll-snap-align: start;
-  background-color: #000;
-  cursor: pointer;
+    position: relative;
+    flex: 0 0 auto;
+    width: 160px;
+    height: 90px;
+    border-radius: 8px;
+    overflow: hidden;
+    scroll-snap-align: start;
+    background-color: #000;
+    cursor: pointer;
 }
 
 .video-thumbnail video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
 }
 
 .video-thumbnail span {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  color: #fff;
-  font-size: var(--fs-s);
-  font-weight: bold;
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 2px 6px;
-  border-radius: 4px;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    color: var(--color-yellow);
+    font-size: var(--fs-s);
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 2px 6px;
+    border-radius: 4px;
 }
-
+/* 
 .calendar {
     font-family: var(--ff-secondary);
 
@@ -119,6 +119,152 @@ h2 {
     }
 }
 
+.pictures li {
+    width: 40px;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 1px;
+}
+
+
+.pictures li img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    border-radius: 8px;
+}
+ */
+
+.previous-month-label {
+    font-family: var(--ff-secondary);
+    font-size: var(--fs-m);
+    margin-top: var(--m);
+    margin-bottom: 0;
+    grid-column: span 7;
+}
+
+.pictures {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: var(--s);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.picture-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--xs);
+    font-family: var(--ff-secondary);
+}
+
+.picture-item p {
+    font-size: var(--fs-s);
+    color: var(--color-grey-dark);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.picture-item img {
+    width: 45px;
+    height: 55px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    border-radius: 3px;
+}
+
 .show-more {
     margin-top: var(--s);
+    text-decoration: underline;
+}
+
+button:disabled {
+    background-color: color-mix(in srgb, var(--color-yellow), var(--color-black) 40%);
+    cursor: default;
+    opacity: 0.6;
+}
+
+/* Modal Overlay */
+#selfieModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85);
+    justify-content: center;
+    align-items: center;
+}
+
+#selfieModal.active {
+    display: flex;
+}
+
+/* Modal-Wrapper (zum Klicken auf Hintergrund) */
+.modal-content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Modal-Inhalt */
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Damit das X rechtsbündig ist */
+}
+
+/* Modal-Bild */
+.modal-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* X-Schließen-Button */
+.modal-close {
+    background: transparent;
+    color: var(--color-white);
+    font-size: var(--fs-logo-mobile);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: var(--xs);
+}
+
+/* Download-Link */
+.modal-download {
+    display: block;
+    margin-top: var(--s);
+    text-align: center;
+    color: var(--color-white);
+    text-decoration: underline;
+    font-size: var(--fs-m);
+}
+
+button.disabled {
+    background-color: var(--color-grey-dark);
+    color: var(--color-grey-light);
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.info-text {
+    margin-top: var(--s);
+    color: var(--color-grey-light);
+    font-size: var(--fs-s);
 }
