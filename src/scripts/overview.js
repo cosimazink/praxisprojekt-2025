@@ -4,19 +4,18 @@ const progressText = document.querySelector('.progress-text');
 const generateRecapBtn = document.getElementById("generateRecapBtn");
 const videoSlider = document.getElementById('videoSlider');
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const userId = getUserId();
+function showWelcomeMessage() {
+    const welcomeContainer = document.getElementById("welcomeText");
 
-    const selfieCount = await fetchSelfieCount(userId);
-    setProgress(selfieCount);
-
-    await disableSelfieIfAlreadyTaken(userId);
-
-    //await checkRecapEligibility(userId);
-    loadRecapVideos(userId);
-    updateCalendarHeader();
-    await loadFirstWeekSelfies(userId);
-});
+    if (localStorage.getItem("hasVisitedBefore")) {
+        welcomeContainer.innerHTML = `
+            <h1>Willkommen zurück!</h1>
+            <p>Schön, dass du wieder da bist.</p>
+        `;
+    } else {
+        localStorage.setItem("hasVisitedBefore", "true");
+    }
+}
 
 // Maximale Anzahl an Selfies für das Recap-Video
 function getDaysInCurrentMonth() {
@@ -408,3 +407,18 @@ async function disableSelfieIfAlreadyTaken(userId) {
         notice.textContent = "Heutiges Selfie bereits aufgenommen";
     }
 }
+
+document.addEventListener('DOMContentLoaded', async () => {
+    showWelcomeMessage();
+    const userId = getUserId();
+
+    const selfieCount = await fetchSelfieCount(userId);
+    setProgress(selfieCount);
+
+    await disableSelfieIfAlreadyTaken(userId);
+
+    //await checkRecapEligibility(userId);
+    loadRecapVideos(userId);
+    updateCalendarHeader();
+    await loadFirstWeekSelfies(userId);
+});
