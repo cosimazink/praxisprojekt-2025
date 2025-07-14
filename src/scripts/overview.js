@@ -4,6 +4,20 @@ const progressText = document.querySelector('.progress-text');
 const generateRecapBtn = document.getElementById("generateRecapBtn");
 const videoSlider = document.getElementById('videoSlider');
 
+document.addEventListener('DOMContentLoaded', async () => {
+    const userId = getUserId();
+
+    const selfieCount = await fetchSelfieCount(userId);
+    setProgress(selfieCount);
+
+    await disableSelfieIfAlreadyTaken(userId);
+
+    //await checkRecapEligibility(userId);
+    loadRecapVideos(userId);
+    updateCalendarHeader();
+    await loadFirstWeekSelfies(userId);
+});
+
 // Maximale Anzahl an Selfies für das Recap-Video
 function getDaysInCurrentMonth() {
     const now = new Date();
@@ -198,19 +212,6 @@ generateRecapBtn.addEventListener("click", () => {
   window.location.href = "/recapvideo.html";
 });
 
-// DOM vollständig geladen? Dann alles ausführen
-document.addEventListener('DOMContentLoaded', async () => {
-    const userId = getUserId();
-
-    const selfieCount = await fetchSelfieCount(userId);
-    setProgress(selfieCount);
-
-    //await checkRecapEligibility(userId);
-    loadRecapVideos(userId);
-    updateCalendarHeader();
-    await loadFirstWeekSelfies(userId);
-});
-
 // Modal-Elemente erzeugen
 const modal = document.createElement("div");
 modal.id = "selfieModal";
@@ -386,5 +387,24 @@ async function renderPreviousMonths() {
             li.appendChild(innerList);
             container.appendChild(li);
         });
+    }
+}
+
+function hasTakenSelfieToday(userId, files) {
+    const today = new Date().toISOString().split("T")[0];
+    return files.some(filename => filename.includes(`${userId}__${today}`));
+}
+
+async function disableSelfieIfAlreadyTaken(userId) {
+    const response = await fetch(`/uploads/list?userId=${userId}`);
+    const files = await response.json();
+
+    if (hasTakenSelfieToday(userId, files)) {
+        const selfieBtn = document.getElementById("startSelfie");
+        selfieBtn.disabled = true;
+        selfieBtn.classList.add("disabled");
+
+        const notice = document.getElementById("selfieNotice");
+        notice.textContent = "Heutiges Selfie bereits aufgenommen";
     }
 }

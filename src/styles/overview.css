@@ -15,7 +15,12 @@ h2 {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    margin-top: var(--xxxl);
     margin-bottom: var(--xxxl);
+}
+
+#startSelfie {
+    margin-bottom: 0;
 }
 
 .progress-circle {
@@ -248,4 +253,18 @@ button:disabled {
     color: var(--color-white);
     text-decoration: underline;
     font-size: var(--fs-m);
+}
+
+button.disabled {
+    background-color: var(--color-grey-dark);
+    color: var(--color-grey-light);
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.info-text {
+    margin-top: var(--s);
+    color: var(--color-grey-light);
+    font-size: var(--fs-s);
 }
