@@ -30,9 +30,14 @@
   <main>
     <h2>Selfie aufnehmen</h2>
 
+    <button id="toggleFlash" class="flash-button">
+        <span class="icon">flash_off</span>
+    </button>
+
     <div class="video-wrapper">
       <video id="video" autoplay playsinline></video>
     </div>
+    <div id="flash-overlay"></div>
     <canvas id="canvas"></canvas>
 
     <div class="buttons">

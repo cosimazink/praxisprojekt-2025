@@ -37,3 +37,46 @@ h2 {
     margin-bottom: var(--l);
     padding: 0;
 }
+
+#flash-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  opacity: 0;
+  z-index: 999;
+  pointer-events: none;
+  transition: opacity 0.1s ease;
+}
+
+.flash-button {
+  position: absolute;
+  top: 190px;
+  right: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+button#toggleFlash.flash-button {
+  position: absolute;
+  top: 190px;
+  right: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+button#toggleFlash.flash-button .icon {
+  font-size: 2rem;
+  color: var(--color-white);
+  transition: opacity 1s ease;
+}
+
+button#toggleFlash.flash-button.active .icon {
+  opacity: 1;
+}
