@@ -4,6 +4,7 @@ const progressText = document.querySelector('.progress-text');
 const generateRecapBtn = document.getElementById("generateRecapBtn");
 const videoSlider = document.getElementById('videoSlider');
 
+// Willkommensnachricht bei ersten Besuch
 function showWelcomeMessage() {
     const welcomeContainer = document.getElementById("welcomeText");
 
@@ -42,9 +43,9 @@ async function fetchSelfieCount(userId) {
     const year = now.getFullYear();
     const month = now.getMonth();
 
-    // Nur Bilder aus dem aktuellen Monat zählen
+    // Bilder aus aktuellen Monat zählen
     const currentMonthFiles = files.filter(filename => {
-        const parts = filename.split('__')[1]; // YYYY-MM-DD
+        const parts = filename.split('__')[1];
         if (!parts) return false;
 
         const date = new Date(parts);
@@ -73,7 +74,7 @@ function setProgress(currentCount) {
         : `Recap-Video bereit!`;
 }
 
-// Recap-Button aktivieren, wenn 30 Selfies im aktuellen Monat vorhanden
+// Prüfen, ob aktueller Monat mit dem übergebenen Datum übereinstimmt
 function isSameMonth(dateStr) {
     const date = new Date(dateStr);
     const now = new Date();
@@ -82,21 +83,6 @@ function isSameMonth(dateStr) {
         date.getMonth() === now.getMonth()
     );
 }
-
-// Überprüft, ob der Nutzer genug Selfies für das Recap-Video hat
-/* async function checkRecapEligibility(userId) {
-    const maxValue = getDaysInCurrentMonth();
-    const response = await fetch(`/uploads/list?userId=${userId}`);
-    const files = await response.json();
-
-    const countThisMonth = files.filter(filename => {
-        const parts = filename.split('__')[1]; // YYYY-MM-DD
-        if (!parts) return false;
-        return isSameMonth(parts);
-    }).length;
-
-    generateRecapBtn.disabled = countThisMonth < maxValue;
-} */
 
 // Selfies der ersten Woche laden
 async function loadFirstWeekSelfies(userId) {
@@ -114,7 +100,7 @@ async function loadFirstWeekSelfies(userId) {
         const parts = filename.split('__');
         if (parts.length < 2) return false;
 
-        const datePart = parts[1]; // z. B. "2025-07-03"
+        const datePart = parts[1];
         const date = new Date(datePart);
         return (
             date.getFullYear() === year &&
@@ -132,7 +118,7 @@ async function loadFirstWeekSelfies(userId) {
 
     filtered.slice(0, 7).forEach(filename => {
         const parts = filename.split('__');
-        const dateStr = parts[1]; // "YYYY-MM-DD"
+        const dateStr = parts[1];
         const date = new Date(dateStr);
 
         const weekday = date.toLocaleDateString('de-DE', { weekday: 'short' });
@@ -154,9 +140,7 @@ async function loadFirstWeekSelfies(userId) {
         img.alt = "Selfie";
         img.loading = "lazy";
 
-        //const divider = document.createElement("hr");
         innerList.appendChild(dayText);
-        //innerList.appendChild(divider);
         innerList.appendChild(dateText);
         innerList.appendChild(img);
 
@@ -195,6 +179,7 @@ function loadRecapVideos(userId) {
         });
 }
 
+// Monat aus Dateinamen extrahieren
 function extractMonthFromFilename(filename) {
     const parts = filename.split('__')[1];
     const dateStr = parts?.split('.')[0];
@@ -202,7 +187,6 @@ function extractMonthFromFilename(filename) {
     return month;
 }
 
-// Button "Selfie aufnehmen" verlinken
 document.getElementById("startSelfie").addEventListener("click", () => {
     window.location.href = "/selfie";
 });
@@ -211,7 +195,7 @@ generateRecapBtn.addEventListener("click", () => {
   window.location.href = "/recapvideo.html";
 });
 
-// Modal-Elemente erzeugen
+// Selfie Großansicht
 const modal = document.createElement("div");
 modal.id = "selfieModal";
 modal.innerHTML = `
@@ -277,7 +261,6 @@ document.querySelector('.show-more').addEventListener('click', async function ()
         await renderPreviousMonths();
     } else {
         await loadFirstWeekSelfies(getUserId());
-        // Optional: vorherige Monate aus dem DOM entfernen
         document.querySelectorAll('.previous-month').forEach(el => el.remove());
     }
 });
@@ -389,11 +372,13 @@ async function renderPreviousMonths() {
     }
 }
 
+// Prüft, ob heute bereits ein Selfie aufgenommen wurde
 function hasTakenSelfieToday(userId, files) {
     const today = new Date().toISOString().split("T")[0];
     return files.some(filename => filename.includes(`${userId}__${today}`));
 }
 
+// Deaktiviert den Selfie-Button, wenn heute bereits ein Selfie aufgenommen wurde
 async function disableSelfieIfAlreadyTaken(userId) {
     const response = await fetch(`/uploads/list?userId=${userId}`);
     const files = await response.json();
