@@ -7,7 +7,9 @@ const context = canvas.getContext("2d");
 const videoWrapper = document.querySelector(".video-wrapper");
 const flashOverlay = document.getElementById("flash-overlay");
 const flashToggleBtn = document.getElementById("toggleFlash");
+
 let flashEnabled = false;
+
 flashToggleBtn.querySelector(".icon").textContent = "flash_off";
 flashToggleBtn.classList.remove("active");
 
@@ -22,7 +24,7 @@ navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 } })
     .then(stream => video.srcObject = stream)
     .catch(err => console.error("Kamera-Zugriff verweigert:", err));
 
-//
+// Flash-Button aktivieren/deaktivieren
 flashToggleBtn.addEventListener("click", () => {
   flashEnabled = !flashEnabled;
 
@@ -32,8 +34,7 @@ flashToggleBtn.addEventListener("click", () => {
   flashToggleBtn.classList.toggle("active", flashEnabled);
 });
 
-
-// Bild aufnehmen
+// Selfie aufnehmen
 captureBtn.addEventListener("click", () => {
   if (flashEnabled) {
     flashOverlay.style.opacity = "1";
@@ -42,7 +43,6 @@ captureBtn.addEventListener("click", () => {
     }, 150);
   }
 
-  // Selfie aufnehmen
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
   context.save();
@@ -50,7 +50,6 @@ captureBtn.addEventListener("click", () => {
   context.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
   context.restore();
 
-  // UI anpassen
   canvas.style.display = "block";
   videoWrapper.style.display = "none";
   retryBtn.style.display = "inline-block";
@@ -64,7 +63,7 @@ captureBtn.addEventListener("click", () => {
 retryBtn.addEventListener("click", () => {
     // Ändere die Sichtbarkeit der Elemente zurück
     canvas.style.display = "none";
-    videoWrapper.style.display = "block"; // Geändert: Zeige den Video-Wrapper wieder an
+    videoWrapper.style.display = "block";
     retryBtn.style.display = "none";
     saveBtn.style.display = "none";
     captureBtn.style.display = "inline-block";

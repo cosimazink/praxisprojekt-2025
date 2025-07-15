@@ -17,7 +17,6 @@ app.use(express.static(path.join(__dirname, "src")));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/videos', express.static(path.join(__dirname, 'videos')));
 
-// Übersicht anzeigen
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "src", "overview.html"));
 });
@@ -30,11 +29,9 @@ app.get("/watch", (req, res) => {
     res.sendFile(path.join(__dirname, "src", "watch.html"));
 });
 
-// API-Endpunkt für Uploads
 app.get("/selfie", (req, res) => {
     res.sendFile(path.join(__dirname, "src", "selfie.html"));
 });
-
 
 // API-Endpunkt für Liste der Uploads pro userId
 app.get("/uploads/list", (req, res) => {
@@ -64,6 +61,7 @@ app.get("/videos/list", (req, res) => {
     });
 });
 
+// Hochladen eines Selfies
 app.post('/upload', (req, res) => {
     const { image, userId } = req.body;
 
@@ -79,16 +77,16 @@ app.post('/upload', (req, res) => {
 
     fs.writeFile(filePath, base64Data, 'base64', (err) => {
         if (err) {
-            console.error('❌ Fehler beim Speichern:', err);
+            console.error('Fehler beim Speichern:', err);
             return res.status(500).send('Fehler beim Speichern');
         }
 
-        console.log('✅ Selfie gespeichert als:', fileName);
+        console.log('Selfie gespeichert als:', fileName);
         res.status(200).send('Bild gespeichert');
     });
 });
 
-
+//Generierung des Videos
 app.post('/generate', async (req, res) => {
     const { userId, duration, resolution, music } = req.body;
     const selectedMonth = parseInt(req.body.month, 10) - 1; // Monat: 0-basiert
@@ -102,7 +100,7 @@ app.post('/generate', async (req, res) => {
         // Bilder für den User aus dem Upload-Verzeichnis holen und sortieren
         const now = new Date();
         const currentYear = now.getFullYear();
-        const currentMonth = now.getMonth(); // 0-basiert
+        const currentMonth = now.getMonth();
         const date = now.toISOString().split('T')[0];
         const time = now.toTimeString().split(' ')[0].replace(/:/g, '-');
         const outputName = `timelapse-${cleanId}__${date}__${time}.mp4`;
@@ -113,7 +111,7 @@ app.post('/generate', async (req, res) => {
                 if (!f.startsWith(userId + '__')) return false;
                 if (!(f.endsWith('.png') || f.endsWith('.jpg'))) return false;
 
-                const datePart = f.split('__')[1]; // "YYYY-MM-DD"
+                const datePart = f.split('__')[1];
                 const fileDate = new Date(datePart);
                 return (
                     fileDate.getFullYear() === selectedYear &&
@@ -138,7 +136,6 @@ app.post('/generate', async (req, res) => {
         fileListPath = path.join(uploadDir, `filelist-${cleanId}-${Date.now()}.txt`);
         fs.writeFileSync(fileListPath, fileListContent);
 
-        // === KORREKTUR: FFmpeg-Ausführung in ein Promise wickeln ===
         // stellt sicher, dass auf den Abschluss warten, bevor der finally-Block die temporäre Datei löscht
         await new Promise((resolve, reject) => {
             const command = ffmpeg();
@@ -166,24 +163,23 @@ app.post('/generate', async (req, res) => {
                 ])
                 .on('end', () => {
                     console.log(`Video erfolgreich erstellt: ${outputName}`);
-                    resolve(); // Promise als erfolgreich auflösen
+                    resolve();
                 })
                 .on('error', (err, stdout, stderr) => {
                     console.error('FFmpeg Fehler:', err.message);
                     console.error('FFmpeg stderr:', stderr);
-                    reject(new Error(stderr)); // Promise mit Fehler ablehnen
+                    reject(new Error(stderr));
                 })
                 .save(outputPath);
         });
 
-        // Wenn das Promise erfolgreich war, die Antwort senden
         res.json({ videoUrl: `/videos/${outputName}` });
 
     } catch (error) {
         console.error('Fehler bei der Videogenerierung:', error.message);
         res.status(500).json({ message: 'Videoerstellung fehlgeschlagen.', error: error.message });
     } finally {
-        // Die temporäre Dateiliste nach der Verwendung immer löschen
+        // Die temporäre Dateiliste nach der Verwendung löschen
         if (fileListPath && fs.existsSync(fileListPath)) {
             console.log(`Lösche temporäre Datei: ${fileListPath}`);
             fs.unlinkSync(fileListPath);

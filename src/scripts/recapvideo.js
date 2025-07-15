@@ -1,13 +1,3 @@
-document.addEventListener("DOMContentLoaded", async () => {
-    const savedId = localStorage.getItem("userId");
-    const userId = savedId || getUserId();
-
-    document.getElementById("userId").value = userId;
-
-    populateMonthSelect();
-    filterResolutionsByAspectRatio(userId);
-});
-
 document.getElementById('config-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -45,14 +35,12 @@ document.getElementById('config-form').addEventListener('submit', async (e) => {
         downloadLink.href = data.videoUrl;
         downloadLink.download = data.videoUrl.split("/").pop();
 
-        // Share-Link generieren (z. B. mit Token oder temporärer URL)
+        // Share-Link generieren
         const shareLink = document.getElementById("shareLink");
         const videoFileName = data.videoUrl.split("/").pop();
         const watchUrl = `${window.location.origin}/watch?v=${encodeURIComponent(videoFileName)}`;
         shareLink.href = watchUrl;
         shareLink.textContent = watchUrl;
-
-
 
         document.getElementById("video-options").style.display = "block";
     } catch (err) {
@@ -63,6 +51,7 @@ document.getElementById('config-form').addEventListener('submit', async (e) => {
     }
 });
 
+// Befüllen des Monat-Auswahlfeldes
 function populateMonthSelect() {
     const monthSelect = document.getElementById("monthSelect");
     const now = new Date();
@@ -86,7 +75,7 @@ function populateMonthSelect() {
     }
 }
 
-// Funktion zum Filtern der Auflösungen basierend auf dem Seitenverhältnis des ersten Bildes
+// Filtern der Auflösungen basierend auf dem Seitenverhältnis des ersten Bildes
 async function filterResolutionsByAspectRatio(userId) {
     try {
         const response = await fetch(`/uploads/list?userId=${userId}`);
@@ -120,3 +109,13 @@ async function filterResolutionsByAspectRatio(userId) {
 function getUserId() {
     return 'anon_' + Math.random().toString(36).substring(2, 10);
 }
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const savedId = localStorage.getItem("userId");
+    const userId = savedId || getUserId();
+
+    document.getElementById("userId").value = userId;
+
+    populateMonthSelect();
+    filterResolutionsByAspectRatio(userId);
+});

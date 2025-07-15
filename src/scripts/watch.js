@@ -2,6 +2,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const video = document.getElementById("sharedVideo");
 const videoName = urlParams.get("v");
 
+// Überprüfen, ob ein Video-Name in der URL angegeben ist
 if (videoName) {
     video.src = `/videos/${encodeURIComponent(videoName)}`;
 } else {
