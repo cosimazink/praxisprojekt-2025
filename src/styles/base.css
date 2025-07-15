@@ -144,7 +144,7 @@ h1 {
   font-family: var(--ff-logo);
   font-weight: var(--fw-logo);
   font-size: var(--fs-logo);
-  line-height: 35px;
+  line-height: var(--xxxl);
 }
 
 h2 {
