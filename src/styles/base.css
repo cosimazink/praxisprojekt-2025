@@ -75,6 +75,53 @@ header {
   }
 }
 
+.side-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: var(--color-white);
+    box-shadow: -2px 0 8px var(--color-black);
+    padding: var(--xl) var(--m);
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.side-nav.show {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.side-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s);
+}
+
+.side-nav a {
+    color: var(--color-black);
+    text-decoration: none;
+    font-weight: bold;
+    padding: var(--s);
+    border-radius: 4px;
+}
+
+.side-nav a:hover {
+    background-color: var(--color-grey-darkest);
+}
+
+.side-nav.hidden {
+    display: none;
+}
+
 a {
   color: var(--color-black);
   font-weight: var(--fw-medium);
