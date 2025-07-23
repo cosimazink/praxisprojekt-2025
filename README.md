@@ -5,6 +5,9 @@ Dieses Projekt ist Teil des Praxisprojekts von Christian Noss und hat das Ziel, 
 
 [Projektseite - Christian Noss](https://cnoss.github.io/thesis/) <br>
 
+## Kontext des Werks
+Diese prototypische Webanwendung entstand im Rahmen des Praxisprojekts im 6. Semester des Studiengangs Medieninformatik an der TH Köln. Besonderer Fokus lag auf einer nutzerzentrierten Gestaltung, der technischen Machbarkeit sowie der Entwicklung eines kohärenten Nutzungskonzepts mit Rückblickfunktion.
+
 ## Dokumentation & Ressourcen
 
 Wiki: Detaillierte technische Dokumentation und Anleitungen zur Nutzung der Anwendung findest du im [Projekt-Wiki](https://github.com/cosimazink/praxisprojekt-2025/wiki) <br>
@@ -69,3 +72,5 @@ Für eine einfache Orientierung im Code folgt eine Übersicht der wichtigsten Da
 
 ## Contributers
 [Cosima Hiromi Zink](https://github.com/cosimazink)
+
+[**Lizenz**](https://github.com/cosimazink/praxisprojekt-2025/blob/main/LICENSE)
