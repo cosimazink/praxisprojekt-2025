@@ -23,7 +23,49 @@ Installiere FFmpeg: <br>
 ### Den Quellcode kann man nach den Installationen über folgenden Befehl ausführen: 
 `node server.js` <br>
 Abrufbar im Browser unter: <br>
-*http://localhost:3000/*
+http://localhost:3000/
+
+## Nutzungshinweise
+
+**Tägliches Selfie aufnehmen** <br>
+Auf der Startseite wird über den Button „Heutiges Selfie aufnehmen“ ein Kamerazugriff ausgelöst. Nach Bestätigung wird das Bild im lokalen Uploads-Ordner gespeichert.<br>
+**Recap-Video erstellen** <br>
+Mit dem Button „Recap-Video erstellen“ lässt sich aus allen Selfies des aktuellen Monats ein Zeitraffer-Video generieren (basierend auf FFmpeg im Backend). Der Monat muss mindestens 15 Selfies enthalten, um ein Video erstellen zu können. <br>
+**Selfie-Übersicht anzeigen** <br>
+Im Kalenderbereich werden Selfies der ersten Woche angezeigt, optional können durch „Mehr anzeigen“ alle Tage eingeblendet werden. <br>
+**Fortschrittsanzeige** <br>
+Ein Kreisdiagramm visualisiert den Fortschritt im aktuellen Monat anhand der gespeicherten Selfies.
+
+## Dateiübersicht
+
+Für eine einfache Orientierung im Code folgt eine Übersicht der wichtigsten Dateien. <br>
+
+- **POCs**: Die einzelnen Umsetzungen der Proof-of-Concepts zur Machbarkeitsprüfung einzelner Funktionen (Bildaufnahme, Videoerstellung, Speicherung).
+- **src**: Hauptverzeichnis für alle clientseitigen Ressourcen der Webanwendung.
+  - **assets**: Logos und Icons für das UI.
+  - **fonts**: Einbindung der verwendeten Schriftarten.
+  - **scripts**: JavaScript-Funktionen zur Steuerung der Anwendung.
+    - **burger-menu.js**: Öffnet und schließt das Menü.
+    - **overview.js**: Logik zur Anzeige und Navigation der Selfie-Übersicht.
+    - **recapvideo.js**: Erzeugt Recap-Videos aus gespeicherten Bildern.
+    - **selfie.js**: Steuerung der Selfie-Aufnahme und -Speicherung.
+    - **watch.js**: Anzeige und Wiedergabe von Recap-Videos.
+  - **styles**: CSS-Dateien zur Gestaltung der Benutzeroberfläche.
+    - **base.css**: Grundlegende Styles.
+    - **combined.css**: Zusammengeführte CSS-Datei für den Produktivbetrieb.
+    - **fonts.css**: Definitionen für verwendete Schriftarten.
+    - **icons.css**: Stile für eingesetzte Icon-Sets.
+    - **overview.css, recapvideo.css, selfie.css, watch.css**: Spezifische Styles für die jeweiligen Views.
+    - **reset.css**: CSS-Reset für konsistentes Rendering.
+    - **variables.css**: Zentrale Definition von CSS-Variablen.
+**HTML-Dateien:**
+  - **overview.html**: Übersicht aller Selfies.
+  - **recapvideo.html**: Benutzeroberfläche zur Erstellung eines Zeitraffervideos.
+  - **selfie.html**: Aufnahmefunktion für Selfies.
+  - **watch.html**: Galerie zur Betrachtung bereits generierter Videos.
+- **uploads**: Serververzeichnis zum Speichern der aufgenommenen Selfies, sortiert nach Nutzer.
+- **videos**: Ordner für automatisch generierte Recap-Videos.
+- **server.js**: Serverseitiger Code zur Dateiverwaltung, Videoerstellung und Routensteuerung.
 
 ## Contributers
 [Cosima Hiromi Zink](https://github.com/cosimazink)
