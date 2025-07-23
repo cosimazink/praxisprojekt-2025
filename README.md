@@ -13,5 +13,17 @@ Weekly Documentation: [Wöchentliche Dokumentation der Arbeit](https://github.co
 Kanban Board: [Kanban Board mit Issues für das Praxisprojekt](https://github.com/users/cosimazink/projects/1) <br>
 Miro-Board: Weitere Details und die visuelle Darstellung des Projekts findest du auf dem [Miro-Board](https://miro.com/welcomeonboard/bFZ4bWxMd0VHU0Fmb3R2K1U0NFpEWjA4ejVSSENLVFhWMm52VVlWbDF6OXpiUnRRVk1sSVJ0aWI1Lzl4VktHbmJHQVU4MkxLUCtEN1ErSzlnZ0tKajcvUFg4SHhoWngyZ0xsVnZrUm9kRFYzTUk1TlU0ek50NUtub0l2VkFkbjRyVmtkMG5hNDA3dVlncnBvRVB2ZXBnPT0hdjE=?share_link_id=965112996615)
 
+## Nutzungsanleitung
+### Für die Nutzung von Mira ist es notwenig Node.js inklusive Express.js und FFmpeg zu intallieren. <br>
+Installiere die Node.js-Pakete (inkl. Express): <br>
+`npm install` <br>
+Installiere FFmpeg: <br>
+`brew install ffmpeg`<br>
+
+### Den Quellcode kann man nach den Installationen über folgenden Befehl ausführen: 
+`node server.js` <br>
+Abrufbar im Browser unter: <br>
+*http://localhost:3000/*
+
 ## Contributers
 [Cosima Hiromi Zink](https://github.com/cosimazink)
