@@ -15,14 +15,14 @@ flashToggleBtn.classList.remove("active");
 
 let userId = localStorage.getItem("userId");
 if (!userId) {
-    userId = Math.floor(100000 + Math.random() * 900000).toString();
-    localStorage.setItem("userId", userId);
+  userId = Math.floor(100000 + Math.random() * 900000).toString();
+  localStorage.setItem("userId", userId);
 }
 
 // Kamera starten
 navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 } })
-    .then(stream => video.srcObject = stream)
-    .catch(err => console.error("Kamera-Zugriff verweigert:", err));
+  .then(stream => video.srcObject = stream)
+  .catch(err => console.error("Kamera-Zugriff verweigert:", err));
 
 // Flash-Button aktivieren/deaktivieren
 flashToggleBtn.addEventListener("click", () => {
@@ -61,25 +61,27 @@ captureBtn.addEventListener("click", () => {
 
 // Neu aufnehmen
 retryBtn.addEventListener("click", () => {
-    // Ändere die Sichtbarkeit der Elemente zurück
-    canvas.style.display = "none";
-    videoWrapper.style.display = "block";
-    retryBtn.style.display = "none";
-    saveBtn.style.display = "none";
-    captureBtn.style.display = "inline-block";
+  // Ändere die Sichtbarkeit der Elemente zurück
+  canvas.style.display = "none";
+  videoWrapper.style.display = "block";
+  retryBtn.style.display = "none";
+  saveBtn.style.display = "none";
+  captureBtn.style.display = "inline-block";
 });
 
 // Speichern
 saveBtn.addEventListener("click", () => {
-    const dataUrl = canvas.toDataURL("image/png");
-    fetch("/upload", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ image: dataUrl, userId: userId })
-    }).then(() => {
-        // Zurück zur Übersicht
-        window.location.href = "/";
-    });
+  const dataUrl = canvas.toDataURL("image/png");
+  fetch("/upload", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ image: dataUrl, userId: userId })
+  }).then(() => {
+    // Zurück zur Übersicht
+    window.location.href = "/";
+  });
+  localStorage.setItem("showSaveNotification", "true");
+  window.location.href = "/";
 });
