@@ -268,3 +268,21 @@ button.disabled {
     color: var(--color-grey-light);
     font-size: var(--fs-s);
 }
+
+.save-popup {
+  position: fixed;
+  top: 20px;
+  right: -300px;
+  background-color: var(--color-yellow);
+  color: var(--color-black);
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: right 0.5s ease-in-out;
+  z-index: 1000;
+}
+
+.save-popup.visible {
+  right: 20px;
+}

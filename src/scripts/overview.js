@@ -393,6 +393,25 @@ async function disableSelfieIfAlreadyTaken(userId) {
     }
 }
 
+function showSavePopup() {
+    const popup = document.createElement("div");
+    popup.className = "save-popup";
+    popup.textContent = "Selfie erfolgreich gespeichert!";
+    document.body.appendChild(popup);
+
+    // Einfahren
+    requestAnimationFrame(() => {
+        popup.classList.add("visible");
+    });
+
+    // Nach 10 Sekunden ausblenden
+    setTimeout(() => {
+        popup.classList.remove("visible");
+        // Nach der Animation entfernen
+        setTimeout(() => popup.remove(), 500);
+    }, 5000);
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     showWelcomeMessage();
     const userId = getUserId();
@@ -402,8 +421,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await disableSelfieIfAlreadyTaken(userId);
 
-    //await checkRecapEligibility(userId);
     loadRecapVideos(userId);
     updateCalendarHeader();
     await loadFirstWeekSelfies(userId);
+
+    // Popup anzeigen, falls Selfie gespeichert wurde
+    if (localStorage.getItem("showSaveNotification") === "true") {
+        localStorage.removeItem("showSaveNotification");
+        showSavePopup();
+    }
 });
