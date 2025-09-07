@@ -22,6 +22,7 @@
   "homepage": "https://github.com/cosimazink/praxisprojekt-2025#readme",
   "dependencies": {
     "@supabase/supabase-js": "^2.57.2",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "fluent-ffmpeg": "^2.1.3"
