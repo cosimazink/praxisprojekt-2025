@@ -69,19 +69,30 @@ retryBtn.addEventListener("click", () => {
   captureBtn.style.display = "inline-block";
 });
 
-// Speichern
-saveBtn.addEventListener("click", () => {
-  const dataUrl = canvas.toDataURL("image/png");
-  fetch("/upload", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ image: dataUrl, userId: userId })
-  }).then(() => {
-    // Zurück zur Übersicht
+// Speichern (direkt in Supabase via signed URL)
+saveBtn.addEventListener("click", async () => {
+  try {
+    // PNG aus Canvas holen → Blob
+    const dataUrl = canvas.toDataURL("image/png");
+    const blob = await (await fetch(dataUrl)).blob();
+
+    // 1) signed upload url holen
+    const resp = await fetch("/api/upload-url", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, imageExt: "png" })
+    });
+    if (!resp.ok) throw new Error("Konnte Upload-URL nicht erstellen");
+    const { signedUrl } = await resp.json();
+
+    // 2) direkt zu Supabase PUTten
+    const put = await fetch(signedUrl, { method: "PUT", body: blob });
+    if (!put.ok) throw new Error("Upload fehlgeschlagen");
+
+    localStorage.setItem("showSaveNotification", "true");
     window.location.href = "/";
-  });
-  localStorage.setItem("showSaveNotification", "true");
-  window.location.href = "/";
+  } catch (e) {
+    console.error(e);
+    alert("Fehler beim Speichern: " + e.message);
+  }
 });

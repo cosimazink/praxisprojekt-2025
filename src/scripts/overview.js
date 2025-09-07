@@ -136,7 +136,7 @@ async function loadFirstWeekSelfies(userId) {
         dateText.textContent = dayFormatted;
 
         const img = document.createElement("img");
-        img.src = `/uploads/${filename}`;
+        img.src = `/media/selfie?key=${encodeURIComponent(filename)}`;
         img.alt = "Selfie";
         img.loading = "lazy";
 
@@ -160,11 +160,11 @@ function loadRecapVideos(userId) {
                 const monthLabel = extractMonthFromFilename(filename);
 
                 const wrapper = document.createElement('a');
-                wrapper.href = `/videos/${filename}`;
+                wrapper.href = `/media/video?key=${encodeURIComponent(filename)}`;
                 wrapper.className = 'video-thumbnail';
 
                 const video = document.createElement('video');
-                video.src = `/videos/${filename}`;
+                video.src = `/media/video?key=${encodeURIComponent(filename)}`;
                 video.muted = true;
                 video.loop = true;
                 video.autoplay = true;
@@ -304,7 +304,7 @@ async function renderFullMonth() {
         dateText.textContent = dayFormatted;
 
         const img = document.createElement("img");
-        img.src = `/uploads/${filename}`;
+        img.src = `/media/selfie?key=${encodeURIComponent(filename)}`;
         img.alt = "Selfie";
 
         innerList.appendChild(dayText);
@@ -360,7 +360,7 @@ async function renderPreviousMonths() {
             dateText.textContent = dayFormatted;
 
             const img = document.createElement("img");
-            img.src = `/uploads/${filename}`;
+            img.src = `/media/selfie?key=${encodeURIComponent(filename)}`;
             img.alt = "Selfie";
 
             innerList.appendChild(dayText);
