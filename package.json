@@ -2,8 +2,10 @@
   "name": "praxisprojekt-2025",
   "version": "1.0.0",
   "description": "Dieses Projekt ist Teil des Praxisprojekts von Christian Noss und hat das Ziel, eine eigenständige Web-Anwendung zu entwickeln, die Nutzer:innen ermöglicht, täglich ein Selfie aufzunehmen und ihren persönlichen Fortschritt über eine visuelle Timeline zu dokumentieren. Nach einer definierten Anzahl an Aufnahmen wird automatisch ein animiertes Video erstellt, das die individuelle Entwicklung über Zeit sichtbar macht. Die Lösung verbindet Self-Tracking mit motivierender visueller Rückmeldung und bietet eine einfache, plattformunabhängige Nutzung direkt im Browser. <br>",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -13,12 +15,14 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/cosimazink/praxisprojekt-2025/issues"
   },
   "homepage": "https://github.com/cosimazink/praxisprojekt-2025#readme",
   "dependencies": {
+    "@supabase/supabase-js": "^2.57.2",
+    "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "fluent-ffmpeg": "^2.1.3"
   }

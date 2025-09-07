@@ -83,7 +83,7 @@ async function filterResolutionsByAspectRatio(userId) {
 
         if (files.length === 0) return;
 
-        const firstImageUrl = `/uploads/${files[0]}`;
+        const firstImageUrl = `/media/selfie?key=${encodeURIComponent(files[0])}`;
         const img = new Image();
         img.src = firstImageUrl;
 
