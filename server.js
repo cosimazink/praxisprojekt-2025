@@ -6,13 +6,13 @@ import ffmpeg from "fluent-ffmpeg";
 import { fileURLToPath } from "url";
 import { createClient } from "@supabase/supabase-js";
 import cors from "cors";
-app.use(cors({ origin: ["https://DEIN-FRONTEND.vercel.app"], methods: ["GET","POST"] }));
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+app.use(cors({ origin: ["https://DEIN-FRONTEND.vercel.app"], methods: ["GET","POST"] }));
 
 // Supabase Client (Service Role für Server)
 const supabase = createClient(
