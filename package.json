@@ -8,6 +8,9 @@
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": "20.x"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cosimazink/praxisprojekt-2025.git"

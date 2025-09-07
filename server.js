@@ -14,6 +14,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(cors({ origin: ["https://DEIN-FRONTEND.vercel.app"], methods: ["GET","POST"] }));
 
+console.log('Node version:', process.version);
+console.log('ENV check:', {
+  SUPABASE_URL: !!process.env.SUPABASE_URL,
+  SERVICE_ROLE_LEN: (process.env.SUPABASE_SERVICE_ROLE || '').length
+});
+
 // Supabase Client (Service Role für Server)
 const supabase = createClient(
   process.env.SUPABASE_URL,
