@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-app.use(cors({ origin: ["https://DEIN-FRONTEND.vercel.app"], methods: ["GET","POST"] }));
+app.use(cors());  //{ origin: ["https://DEIN-FRONTEND.vercel.app"], methods: ["GET", "POST"] }
 
 console.log('Node version:', process.version);
 console.log('ENV check:', {
@@ -45,19 +45,19 @@ app.use(express.json({ limit: '5mb' }));
 app.use(express.static(path.join(__dirname, "src")));
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "src", "overview.html"));
+  res.sendFile(path.join(__dirname, "src", "overview.html"));
 });
 
 app.get("/recapvideo", (req, res) => {
-    res.sendFile(path.join(__dirname, "src", "recapvideo.html"));
+  res.sendFile(path.join(__dirname, "src", "recapvideo.html"));
 });
 
 app.get("/watch", (req, res) => {
-    res.sendFile(path.join(__dirname, "src", "watch.html"));
+  res.sendFile(path.join(__dirname, "src", "watch.html"));
 });
 
 app.get("/selfie", (req, res) => {
-    res.sendFile(path.join(__dirname, "src", "selfie.html"));
+  res.sendFile(path.join(__dirname, "src", "selfie.html"));
 });
 
 // API-Endpunkt für Liste der Uploads pro userId
@@ -164,7 +164,34 @@ app.get("/media/selfie", async (req, res) => {
   }
 });
 
-// Proxy: Video abrufen
+// Proxy: Video abrufen (per Redirect auf signierte URL – unterstützt Range)
+app.get("/media/video", async (req, res) => {
+  try {
+    const key = req.query.key;
+    if (!key) return res.status(400).send("missing key");
+
+    console.log("[media/video] bucket=", VIDEO_BUCKET, " key=", key);
+
+    // 1–5 Minuten sind genug; der <video>-Tag holt sofort los
+    const { data, error } = await supabase
+      .storage
+      .from(VIDEO_BUCKET)
+      .createSignedUrl(key, 60 * 5);
+
+    if (error || !data?.signedUrl) {
+      console.error("[media/video] createSignedUrl error:", error?.message);
+      return res.status(404).send("not found");
+    }
+
+    // 302 auf die signierte Datei – der Browser lädt direkt bei Supabase (mit Range)
+    res.redirect(302, data.signedUrl);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send("error");
+  }
+});
+
+/* 
 app.get("/media/video", async (req, res) => {
   try {
     const key = req.query.key;
@@ -184,7 +211,7 @@ app.get("/media/video", async (req, res) => {
     console.error(e);
     res.status(500).send("error");
   }
-});
+}); */
 
 //Generierung des Videos
 app.post("/generate", async (req, res) => {
@@ -200,7 +227,7 @@ app.post("/generate", async (req, res) => {
     const { data: all, error: listErr } = await supabase
       .storage
       .from(SELFIE_BUCKET)
-      .list("", { limit: 10000, sortBy: { column: "name", order: "asc" }});
+      .list("", { limit: 10000, sortBy: { column: "name", order: "asc" } });
     if (listErr) throw listErr;
 
     const files = (all || []).filter(obj => {
@@ -240,7 +267,7 @@ app.post("/generate", async (req, res) => {
     const musicPath = music && music !== "none"
       ? path.join(__dirname, "src", "assets", "music", music)
       : null;
-    const outputName = `timelapse-${cleanId}__${new Date().toISOString().split("T")[0]}__${new Date().toTimeString().split(" ")[0].replace(/:/g,"-")}.mp4`;
+    const outputName = `timelapse-${cleanId}__${new Date().toISOString().split("T")[0]}__${new Date().toTimeString().split(" ")[0].replace(/:/g, "-")}.mp4`;
     const outLocal = path.join(TMP_DIR, outputName);
 
     await new Promise((resolve, reject) => {
@@ -287,11 +314,11 @@ app.post("/generate", async (req, res) => {
     // Aufräumen
     try {
       if (fileListPath && fs.existsSync(fileListPath)) await fs.promises.unlink(fileListPath);
-    } catch {}
+    } catch { }
   }
 });
 
 // Server starten
 app.listen(PORT, () => {
-    console.log(`Server läuft unter http://localhost:${PORT}`);
+  console.log(`Server läuft unter http://localhost:${PORT}`);
 });
