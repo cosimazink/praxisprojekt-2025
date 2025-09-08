@@ -27,22 +27,26 @@ document.getElementById('config-form').addEventListener('submit', async (e) => {
         }
 
         const data = await res.json();
+        // … innerhalb deines try-Blocks NACH const data = await res.json();
+
         video.src = data.videoUrl;
         preview.style.display = 'block';
         status.textContent = 'Video erfolgreich erstellt';
 
         const downloadLink = document.getElementById("downloadLink");
         downloadLink.href = data.videoUrl;
-        downloadLink.download = data.videoUrl.split("/").pop();
+        downloadLink.download = extractKeyFromUrl(data.videoUrl); // sauberer Dateiname
 
-        // Share-Link generieren
+        // Share-Link generieren – nur den KEY übergeben, NICHT die ganze /media/video?key=…-URL
         const shareLink = document.getElementById("shareLink");
-        const videoFileName = data.videoUrl.split("/").pop();
-        const watchUrl = `${window.location.origin}/watch?v=${encodeURIComponent(videoFileName)}`;
-        shareLink.href = watchUrl;
-        shareLink.textContent = watchUrl;
+        const key = extractKeyFromUrl(data.videoUrl);
+        const watchUrl = new URL("/watch", window.location.origin);
+        watchUrl.searchParams.set("key", key);
+        shareLink.href = watchUrl.toString();
+        shareLink.textContent = watchUrl.toString();
 
         document.getElementById("video-options").style.display = "block";
+
     } catch (err) {
         console.error(err);
         status.textContent = err.message.includes("Mindestens 15")
@@ -119,3 +123,28 @@ document.addEventListener("DOMContentLoaded", async () => {
     populateMonthSelect();
     filterResolutionsByAspectRatio(userId);
 });
+
+// Hilfsfunktion zum Extrahieren des Schlüssels aus einer URL
+function extractKeyFromUrl(urlLike) {
+  try {
+    // Unterstützt relative und absolute URLs
+    const u = new URL(urlLike, window.location.origin);
+
+    // 1) Falls es ein /media/video?key=… ist:
+    const k = u.searchParams.get("key");
+    if (k) return decodeURIComponent(k);
+
+    // 2) Falls es eine Supabase-Sign-URL ist: …/storage/v1/object/sign/videos/<key>?token=…
+    const parts = u.pathname.split("/").filter(Boolean);
+    const idx = parts.lastIndexOf("videos");
+    if (idx !== -1 && parts[idx + 1]) return decodeURIComponent(parts[idx + 1]);
+
+    // 3) Fallback: letzter Pfadteil (z. B. /videos/<key>)
+    return decodeURIComponent(parts.pop());
+  } catch {
+    // ultra-Fallback bei reinen Strings
+    const q = urlLike.split("key=");
+    if (q[1]) return decodeURIComponent(q[1].split("&")[0]);
+    return decodeURIComponent(urlLike.split("/").pop());
+  }
+}
