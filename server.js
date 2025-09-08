@@ -166,6 +166,53 @@ app.get("/media/selfie", async (req, res) => {
 
 // Proxy: Video abrufen (per Redirect auf signierte URL – unterstützt Range)
 app.get("/media/video", async (req, res) => {
+  const rawKey = req.query.key;
+  const key = String(rawKey || "").trim();
+  if (!key) return res.status(400).send("missing key");
+
+  console.log("[media/video] bucket=", VIDEO_BUCKET, " key=", key);
+
+  // 1) Supabase signierte URL (bevorzugt – unterstützt Range)
+  try {
+    const { data, error } = await supabase
+      .storage
+      .from(VIDEO_BUCKET)
+      .createSignedUrl(key, 60 * 10 /* 10 Min */);
+
+    if (!error && data?.signedUrl) {
+      console.log("[media/video] redirect -> Supabase signed URL");
+      // 307 ist für Medien-Streams oft zuverlässiger als 302
+      return res.redirect(307, data.signedUrl);
+    }
+    console.warn("[media/video] Supabase miss:", error?.message || "no signedUrl");
+  } catch (e) {
+    console.warn("[media/video] Supabase error:", e.message);
+  }
+
+  // 2) Lokale Fallbacks (falls Upload knapp vorher noch nicht in Supabase ist)
+  try {
+    const candidates = [
+      path.join(__dirname, "public", "videos", key), // falls du lokal persistierst
+      path.join(__dirname, "videos", key),           // alternativer Ordner
+      path.join(TMP_DIR, key)                        // ganz zuletzt: TMP
+    ];
+
+    for (const fp of candidates) {
+      if (fs.existsSync(fp)) {
+        console.log("[media/video] local fallback ->", fp);
+        res.type("mp4");
+        return res.sendFile(fp);
+      }
+    }
+  } catch (e) {
+    console.warn("[media/video] local fallback error:", e.message);
+  }
+
+  return res.status(404).json({ error: "not found", bucket: VIDEO_BUCKET, key });
+});
+
+
+/* app.get("/media/video", async (req, res) => {
   try {
     const key = req.query.key;
     if (!key) return res.status(400).send("missing key");
@@ -185,28 +232,6 @@ app.get("/media/video", async (req, res) => {
 
     // 302 auf die signierte Datei – der Browser lädt direkt bei Supabase (mit Range)
     res.redirect(302, data.signedUrl);
-  } catch (e) {
-    console.error(e);
-    res.status(500).send("error");
-  }
-});
-
-/* 
-app.get("/media/video", async (req, res) => {
-  try {
-    const key = req.query.key;
-    if (!key) return res.status(400).send("missing key");
-
-    const { data, error } = await supabase
-      .storage
-      .from(VIDEO_BUCKET)
-      .download(key);
-
-    if (error) return res.status(404).send("not found");
-
-    const buf = Buffer.from(await data.arrayBuffer());
-    res.setHeader("Content-Type", "video/mp4");
-    res.send(buf);
   } catch (e) {
     console.error(e);
     res.status(500).send("error");
