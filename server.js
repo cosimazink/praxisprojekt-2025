@@ -263,6 +263,30 @@ app.get("/media/video", async (req, res) => {
   }
 }); */
 
+// Video-URL abrufen
+app.get("/media/video-url", async (req, res) => {
+  const key = String(req.query.key || "").trim();
+  if (!key) return res.status(400).json({ error: "missing key" });
+
+  try {
+    const { data, error } = await supabase
+      .storage
+      .from(VIDEO_BUCKET)
+      .createSignedUrl(key, 60 * 10); // 10 Min gültig
+
+    if (error || !data?.signedUrl) {
+      return res.status(404).json({ error: "not found", key });
+    }
+
+    // Optional: diagnostische Infos
+    return res.json({ signedUrl: data.signedUrl, key });
+  } catch (e) {
+    console.error("[media/video-url] error:", e.message);
+    return res.status(500).json({ error: "server error" });
+  }
+});
+
+
 //Generierung des Videos
 app.post("/generate", async (req, res) => {
   const { userId, duration, resolution, music, month, year } = req.body;
