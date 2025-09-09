@@ -167,39 +167,63 @@ app.get("/media/selfie", async (req, res) => {
 // Proxy: Video abrufen (per Redirect auf signierte URL – unterstützt Range)
 app.get("/media/video", async (req, res) => {
   const rawKey = req.query.key;
+  const proxy = req.query.proxy === "1"; // optionaler Debug/Notfall-Fallback
   const key = String(rawKey || "").trim();
   if (!key) return res.status(400).send("missing key");
 
-  console.log("[media/video] bucket=", VIDEO_BUCKET, " key=", key);
+  console.log("[media/video] IN", {
+    bucket: VIDEO_BUCKET,
+    key,
+    host: req.headers.host,
+    ua: req.headers['user-agent']
+  });
 
-  // 1) Supabase signierte URL (bevorzugt – unterstützt Range)
   try {
     const { data, error } = await supabase
       .storage
       .from(VIDEO_BUCKET)
-      .createSignedUrl(key, 60 * 10 /* 10 Min */);
+      .createSignedUrl(key, 60 * 10);
 
-    if (!error && data?.signedUrl) {
-      console.log("[media/video] redirect -> Supabase signed URL");
-      // 307 ist für Medien-Streams oft zuverlässiger als 302
+    if (error || !data?.signedUrl) {
+      console.warn("[media/video] createSignedUrl miss:", error?.message);
+    } else {
+      console.log("[media/video] signedUrl OK →", new URL(data.signedUrl).hostname);
+
+      if (proxy) {
+        // Debug/Notfall: Proxy das File durch deinen Server (ohne Redirect)
+        // Achtung: Kein Range-Support, aber ideal zum Gegenchecken.
+        try {
+          const r = await fetch(data.signedUrl);
+          if (!r.ok) {
+            console.warn("[media/video] proxy fetch failed:", r.status, r.statusText);
+            return res.status(404).send("not found");
+          }
+          res.setHeader("Content-Type", "video/mp4");
+          res.setHeader("Cache-Control", "private, max-age=300");
+          return r.body.pipe(res);
+        } catch (e) {
+          console.warn("[media/video] proxy error:", e.message);
+          return res.status(500).send("proxy error");
+        }
+      }
+
+      // Regulär: Redirect, damit der <video>-Tag direkt mit Range lädt
       return res.redirect(307, data.signedUrl);
     }
-    console.warn("[media/video] Supabase miss:", error?.message || "no signedUrl");
   } catch (e) {
-    console.warn("[media/video] Supabase error:", e.message);
+    console.warn("[media/video] signedUrl error:", e.message);
   }
 
-  // 2) Lokale Fallbacks (falls Upload knapp vorher noch nicht in Supabase ist)
+  // Lokale Fallbacks (falls Upload eben erst passiert ist)
   try {
     const candidates = [
-      path.join(__dirname, "public", "videos", key), // falls du lokal persistierst
-      path.join(__dirname, "videos", key),           // alternativer Ordner
-      path.join(TMP_DIR, key)                        // ganz zuletzt: TMP
+      path.join(__dirname, "public", "videos", key),
+      path.join(__dirname, "videos", key),
+      path.join(TMP_DIR, key)
     ];
-
     for (const fp of candidates) {
       if (fs.existsSync(fp)) {
-        console.log("[media/video] local fallback ->", fp);
+        console.log("[media/video] local fallback →", fp);
         res.type("mp4");
         return res.sendFile(fp);
       }
@@ -208,7 +232,8 @@ app.get("/media/video", async (req, res) => {
     console.warn("[media/video] local fallback error:", e.message);
   }
 
-  return res.status(404).json({ error: "not found", bucket: VIDEO_BUCKET, key });
+  console.warn("[media/video] OUT 404", { key });
+  return res.status(404).json({ error: "not found", key, bucket: VIDEO_BUCKET });
 });
 
 
