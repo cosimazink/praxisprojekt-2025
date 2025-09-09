@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   videoEl.setAttribute("playsinline", "");
   videoEl.setAttribute("controls", "");
 
-  const API_BASE = (window.API_BASE && String(window.API_BASE).trim()) || window.location.origin;
+  const API_BASE = window.location.origin;
   const base = API_BASE.replace(/\/$/, "");
   const jsonUrl = `${base}/media/video-url?key=${encodeURIComponent(key)}`;
 
