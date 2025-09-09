@@ -236,33 +236,6 @@ app.get("/media/video", async (req, res) => {
   return res.status(404).json({ error: "not found", key, bucket: VIDEO_BUCKET });
 });
 
-
-/* app.get("/media/video", async (req, res) => {
-  try {
-    const key = req.query.key;
-    if (!key) return res.status(400).send("missing key");
-
-    console.log("[media/video] bucket=", VIDEO_BUCKET, " key=", key);
-
-    // 1–5 Minuten sind genug; der <video>-Tag holt sofort los
-    const { data, error } = await supabase
-      .storage
-      .from(VIDEO_BUCKET)
-      .createSignedUrl(key, 60 * 5);
-
-    if (error || !data?.signedUrl) {
-      console.error("[media/video] createSignedUrl error:", error?.message);
-      return res.status(404).send("not found");
-    }
-
-    // 302 auf die signierte Datei – der Browser lädt direkt bei Supabase (mit Range)
-    res.redirect(302, data.signedUrl);
-  } catch (e) {
-    console.error(e);
-    res.status(500).send("error");
-  }
-}); */
-
 // Video-URL abrufen
 app.get("/media/video-url", async (req, res) => {
   const key = String(req.query.key || "").trim();
