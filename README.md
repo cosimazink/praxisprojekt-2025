@@ -17,16 +17,23 @@ Kanban Board: [Kanban Board mit Issues für das Praxisprojekt](https://github.co
 Miro-Board: Weitere Details und die visuelle Darstellung des Projekts findest du auf dem [Miro-Board](https://miro.com/welcomeonboard/bFZ4bWxMd0VHU0Fmb3R2K1U0NFpEWjA4ejVSSENLVFhWMm52VVlWbDF6OXpiUnRRVk1sSVJ0aWI1Lzl4VktHbmJHQVU4MkxLUCtEN1ErSzlnZ0tKajcvUFg4SHhoWngyZ0xsVnZrUm9kRFYzTUk1TlU0ek50NUtub0l2VkFkbjRyVmtkMG5hNDA3dVlncnBvRVB2ZXBnPT0hdjE=?share_link_id=965112996615)
 
 ## Nutzungsanleitung
-### Für die Nutzung von Mira ist es notwenig Node.js inklusive Express.js und FFmpeg zu intallieren. <br>
+### Für die Nutzung von Mira ist es notwenig Node.js inklusive Express.js und FFmpeg zu intallieren: <br>
 Installiere die Node.js-Pakete (inkl. Express): <br>
 `npm install` <br>
 Installiere FFmpeg: <br>
-`brew install ffmpeg`<br>
+`brew install ffmpeg`
 
 ### Den Quellcode kann man nach den Installationen über folgenden Befehl ausführen: 
 `node server.js` <br>
 Abrufbar im Browser unter: <br>
 http://localhost:3000/
+
+### Essenzielle Ordner anlegen:
+`/uploads`     Selfies (Bilder) <br>
+`/videos`      generierte Recap-Videos
+
+### Optional: Docker & Deployment:
+Die Anwendung kann alternativ über das mitgelieferte Dockerfile als Container gestartet oder über Railway bereitgestellt werden.
 
 ## Nutzungshinweise
 
@@ -58,7 +65,7 @@ Für eine einfache Orientierung im Code folgt eine Übersicht der wichtigsten Da
     - **combined.css**: Zusammengeführte CSS-Datei für den Produktivbetrieb.
     - **fonts.css**: Definitionen für verwendete Schriftarten.
     - **icons.css**: Stile für eingesetzte Icon-Sets.
-    - **overview.css, recapvideo.css, selfie.css, watch.css**: Spezifische Styles für die jeweiligen Views.
+    - **overview.css, recapvideo.css, selfie.css**: Spezifische Styles für die jeweiligen Views.
     - **reset.css**: CSS-Reset für konsistentes Rendering.
     - **variables.css**: Zentrale Definition von CSS-Variablen.
 **HTML-Dateien:**
@@ -66,9 +73,14 @@ Für eine einfache Orientierung im Code folgt eine Übersicht der wichtigsten Da
   - **recapvideo.html**: Benutzeroberfläche zur Erstellung eines Zeitraffervideos.
   - **selfie.html**: Aufnahmefunktion für Selfies.
   - **watch.html**: Galerie zur Betrachtung bereits generierter Videos.
-- **uploads**: Serververzeichnis zum Speichern der aufgenommenen Selfies, sortiert nach Nutzer.
-- **videos**: Ordner für automatisch generierte Recap-Videos.
 - **server.js**: Serverseitiger Code zur Dateiverwaltung, Videoerstellung und Routensteuerung.
+**Konfigurations- und Projektdateien:**
+  - .dockerignore: Definiert, welche Dateien beim Docker-Build ignoriert werden sollen.
+  - .gitignore: Definiert Dateien, die nicht ins Git-Repository übernommen werden.
+  - Dockerfile: Anweisungen zur Erstellung eines Docker-Images.
+  - LICENSE: Lizenzhinweise zum Projekt.
+  - package.json & package-lock.json: Abhängigkeiten und Skripte der Node.js-Anwendung.
+  - railway.json: Konfigurationsdatei für Deployment auf Railway.
 
 ## Contributers
 [Cosima Hiromi Zink](https://github.com/cosimazink)
