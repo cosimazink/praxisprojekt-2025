@@ -12,7 +12,10 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-app.use(cors());  //{ origin: ["https://DEIN-FRONTEND.vercel.app"], methods: ["GET", "POST"] }
+app.use(cors({
+  origin: ["https://praxisprojekt-2025-production.up.railway.app"],
+  methods: ["GET", "POST"]
+}));
 
 console.log('Node version:', process.version);
 console.log('ENV check:', {
