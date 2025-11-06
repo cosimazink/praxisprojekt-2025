@@ -16,6 +16,7 @@ Exposé: [Exposé ‐ Web‐Anwendung zur Selfie-Dokumentation](https://github.c
 Weekly Documentation: [Wöchentliche Dokumentation der Arbeit](https://github.com/cosimazink/praxisprojekt-2025/wiki/Weekly-Documentation) <br>
 Kanban Board: [Kanban Board mit Issues für das Praxisprojekt](https://github.com/users/cosimazink/projects/1) <br>
 Miro-Board: Weitere Details und die visuelle Darstellung des Projekts findest du auf dem [Miro-Board](https://miro.com/welcomeonboard/bFZ4bWxMd0VHU0Fmb3R2K1U0NFpEWjA4ejVSSENLVFhWMm52VVlWbDF6OXpiUnRRVk1sSVJ0aWI1Lzl4VktHbmJHQVU4MkxLUCtEN1ErSzlnZ0tKajcvUFg4SHhoWngyZ0xsVnZrUm9kRFYzTUk1TlU0ek50NUtub0l2VkFkbjRyVmtkMG5hNDA3dVlncnBvRVB2ZXBnPT0hdjE=?share_link_id=965112996615)
+Vortrag: [Präsentation](https://github.com/cosimazink/praxisprojekt-2025/wiki/Präsentation) vom 05.11.2025
 
 ## Nutzungsanleitung
 ### Für die Nutzung von Mira ist es notwenig Node.js inklusive Express.js und FFmpeg zu intallieren: <br>
